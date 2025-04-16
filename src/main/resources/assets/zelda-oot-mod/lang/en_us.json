@@ -1,3 +1,5 @@
 {
-  "item.zelda-oot-mod.hookshot": "Hookshot"
+  "item.zelda-oot-mod.hookshot": "Hookshot",
+  "itemTooltip.zelda-oot-mod.hookshot.1": "Use it aiming at wooden",
+  "itemTooltip.zelda-oot-mod.hookshot.2": "structures!"
 }

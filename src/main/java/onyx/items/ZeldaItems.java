@@ -26,7 +26,7 @@ public class ZeldaItems {
 		return item;
 	}
 
-    public static final Item HOOKSHOT = register("hookshot", Item::new, new Item.Settings());
+    public static final Item HOOKSHOT = register("hookshot", Hookshot::new, new Item.Settings());
 
     public static void initialize(){
         ItemGroupEvents.modifyEntriesEvent(ItemGroups.INGREDIENTS)
