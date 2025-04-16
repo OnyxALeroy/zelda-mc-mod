@@ -1,0 +1,27 @@
+{
+  "schemaVersion": 1,
+  "id": "zelda-oot-mod",
+  "version": "${version}",
+  "name": "Zelda OOT Mod",
+  "description": "A simple mod adding stuff from the two Zelda 64s!",
+  "authors": ["Onyx Leroy"],
+  "contact": {
+    "sources": "https://github.com/OnyxALeroy/zelda-mc-mod"
+  },
+  "license": "CC0-1.0",
+  "icon": "assets/zelda-oot-mod/icon.png",
+  "environment": "*",
+  "entrypoints": {
+    "main": ["onyx.ZeldaOOTMod"],
+    "fabric-datagen": ["onyx.ZeldaOOTModDataGenerator"]
+  },
+  "depends": {
+    "fabricloader": ">=0.16.13",
+    "minecraft": "~1.21.4",
+    "java": ">=21",
+    "fabric-api": "*"
+  },
+  "suggests": {
+    "another-mod": "*"
+  }
+}
