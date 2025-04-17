@@ -2,6 +2,7 @@ package onyx;
 
 import net.fabricmc.api.ModInitializer;
 import onyx.items.ZeldaItems;
+import onyx.items.behaviourmanagers.Managers;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,5 +19,6 @@ public class ZeldaOOTMod implements ModInitializer {
 	public void onInitialize() {
 		LOGGER.info("Hello Fabric world!");
 		ZeldaItems.initialize();
+		Managers.initialize();
 	}
 }
