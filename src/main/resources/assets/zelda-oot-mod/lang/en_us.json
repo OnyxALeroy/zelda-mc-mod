@@ -2,10 +2,13 @@
   "_comment_1": "Below are translations for items",
   "itemGroup.zelda-oot-mod": "Zelda Items",
 
-  "_comment_2": "Below are translations for items",
+  "_comment_2": "Below are translations for hookshot-relative items",
   "item.zelda-oot-mod.hookshot": "Hookshot",
   "itemTooltip.zelda-oot-mod.hookshot.1": "Use it aiming at wooden",
   "itemTooltip.zelda-oot-mod.hookshot.2": "structures!",
+  "item.zelda-oot-mod.hooking_stick": "Hooking Stick",
+  "itemTooltip.zelda-oot-mod.hooking_stick.1": "Right-click on a block",
+  "itemTooltip.zelda-oot-mod.hooking_stick.2": "to make it hookable or not!",
 
   "item.zelda-oot-mod.kokiri_sword": "Kokiri Sword",
 

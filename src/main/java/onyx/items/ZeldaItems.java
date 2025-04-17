@@ -21,7 +21,7 @@ import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.minecraft.text.Text;
 
-import onyx.items.materials.GreenTunicMaterial;
+import onyx.items.materials.*;
 
 public class ZeldaItems {
     // Registerer
@@ -41,7 +41,8 @@ public class ZeldaItems {
 	// All Tool material
 	public static final ToolMaterial KOKIRI_SWORD_TOOL = new ToolMaterial(BlockTags.INCORRECT_FOR_WOODEN_TOOL, 0, 0, 0, 999, null);
 
-	// Items to register
+	// Items to register ----------------------------------------------------------------------------------------------------------------------------
+
     public static final Item HOOKSHOT = register("hookshot", Hookshot::new, new Item.Settings());
 	public static final Item KOKIRI_SWORD = register(
 			"kokiri_sword",
@@ -68,6 +69,8 @@ public class ZeldaItems {
 			new Item.Settings().maxDamage(EquipmentType.BOOTS.getMaxDamage(GreenTunicMaterial.BASE_DURABILITY))
 				.component(DataComponentTypes.UNBREAKABLE, new UnbreakableComponent(true))
 	);
+
+    public static final Item HOOKING_STICK = register("hooking_stick", HookingStick::new, new Item.Settings());
 
 	// ----------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -103,6 +106,7 @@ public class ZeldaItems {
 			itemGroup.add(ZeldaItems.GREEN_TUNIC_CHESTPLATE);
 			itemGroup.add(ZeldaItems.GREEN_TUNIC_LEGGINGS);
 			itemGroup.add(ZeldaItems.GREEN_TUNIC_BOOTS);
+			itemGroup.add(ZeldaItems.HOOKING_STICK);
 		});
     }
 }

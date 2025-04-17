@@ -40,7 +40,7 @@ public class Hookshot extends Item {
 
     @Override
     public ActionResult use(World world, PlayerEntity user, Hand hand) {
-        if (world.isClient) return ActionResult.PASS;
+        if (world.isClient) { return ActionResult.PASS; }
 
         long now = System.currentTimeMillis();
         if (HOOK_COOLDOWNS.containsKey(user.getUuid()) &&
@@ -60,24 +60,24 @@ public class Hookshot extends Item {
             entity != user
         );
 
+        // Hooking to an entity?
         Entity closestEntity = null;
         double closestDistance = 20;
-
         for (Entity entity : candidates) {
             Vec3d toEntity = entity.getEyePos().subtract(start);
             double distance = toEntity.length();
 
             if (distance < closestDistance &&
-                direction.dotProduct(toEntity.normalize()) > 0.9961947) { // cos(5°) = 0.9961947
+                direction.dotProduct(toEntity.normalize()) > 0.9961947) { // cos(5°) = 0.9961947 for the aiming cone
                 closestEntity = entity;
                 closestDistance = distance;
             }
         }
-
         if (closestEntity != null) {
             HOOKED_ENTITIES.put(closestEntity.getUuid(), user.getUuid());
 
-            world.playSound(null, user.getBlockPos(), SoundEvents.ENTITY_FISHING_BOBBER_RETRIEVE, SoundCategory.PLAYERS, 1.0F, 1.0F);
+            world.playSound(null, user.getBlockPos(), SoundEvents.ITEM_CROSSBOW_SHOOT, SoundCategory.PLAYERS, 1.0F, 0.7F);
+            world.playSound(null, user.getBlockPos(), SoundEvents.ENTITY_ZOMBIE_ATTACK_IRON_DOOR, SoundCategory.PLAYERS, 0.05F, 0.7F);
 
             // Tell client to animate cooldown
             if (user instanceof ServerPlayerEntity serverPlayer) {
@@ -96,7 +96,6 @@ public class Hookshot extends Item {
             RaycastContext.FluidHandling.NONE,
             user
         ));
-
         if (hit.getType() == HitResult.Type.BLOCK) {
             BlockHitResult blockHit = (BlockHitResult) hit;
             Vec3d hitPos = Vec3d.ofCenter(blockHit.getBlockPos());
@@ -104,7 +103,8 @@ public class Hookshot extends Item {
             HOOKED_PLAYERS.put(user.getUuid(), hitPos);
             HookshotHandler.HOOK_START_TIMES.put(user.getUuid(), System.currentTimeMillis());
 
-            world.playSound(null, user.getBlockPos(), SoundEvents.ENTITY_ENDER_PEARL_THROW, SoundCategory.PLAYERS, 1.0F, 1.0F);
+            world.playSound(null, user.getBlockPos(), SoundEvents.ITEM_CROSSBOW_SHOOT, SoundCategory.PLAYERS, 1.0F, 0.7F);
+            world.playSound(null, user.getBlockPos(), SoundEvents.ENTITY_ZOMBIE_ATTACK_IRON_DOOR, SoundCategory.PLAYERS, 0.05F, 0.7F);
 
             // Tell client to animate cooldown
             if (user instanceof ServerPlayerEntity serverPlayer) {
