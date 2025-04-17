@@ -1,0 +1,14 @@
+{
+  "layers": {
+    "humanoid": [
+      {
+        "texture": "zelda-oot-mod:green_tunic"
+      }
+    ],
+    "humanoid_leggings": [
+      {
+        "texture": "zelda-oot-mod:green_tunic"
+      }
+    ]
+  }
+}

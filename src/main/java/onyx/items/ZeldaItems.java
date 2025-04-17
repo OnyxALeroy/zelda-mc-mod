@@ -1,18 +1,23 @@
 package onyx.items;
 
+import java.util.function.Function;
+
 import net.minecraft.util.Identifier;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
+import net.minecraft.component.DataComponentTypes;
+import net.minecraft.component.type.UnbreakableComponent;
+import net.minecraft.item.ArmorItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroups;
-import net.minecraft.item.SwordItem;
 import net.minecraft.item.ToolMaterial;
+import net.minecraft.item.equipment.EquipmentType;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.tag.BlockTags;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 
-import java.util.function.Function;
+import onyx.items.materials.GreenTunicMaterial;
 
 public class ZeldaItems {
     // Registerer
@@ -30,7 +35,7 @@ public class ZeldaItems {
 	}
 
 	// All Tool material
-	public static final ToolMaterial KOKIRI_SWORD_TOOL = new ToolMaterial(BlockTags.INCORRECT_FOR_WOODEN_TOOL, 0, 0, 0, 800, null);
+	public static final ToolMaterial KOKIRI_SWORD_TOOL = new ToolMaterial(BlockTags.INCORRECT_FOR_WOODEN_TOOL, 0, 0, 0, 999, null);
 
 	// Items to register
     public static final Item HOOKSHOT = register("hookshot", Hookshot::new, new Item.Settings());
@@ -39,12 +44,41 @@ public class ZeldaItems {
 			settings -> new UnbreakableSword(KOKIRI_SWORD_TOOL, 1f, 1f, settings),
 			new Item.Settings()
 	);
+	public static final Item GREEN_TUNIC_HELMET = register("green_tunic_helmet",
+		settings -> new ArmorItem(GreenTunicMaterial.INSTANCE, EquipmentType.HELMET, settings),
+		new Item.Settings().maxDamage(EquipmentType.HELMET.getMaxDamage(GreenTunicMaterial.BASE_DURABILITY))
+		.component(DataComponentTypes.UNBREAKABLE, new UnbreakableComponent(true))
+	);
+	public static final Item GREEN_TUNIC_CHESTPLATE = register("green_tunic_chestplate",
+			settings -> new ArmorItem(GreenTunicMaterial.INSTANCE, EquipmentType.CHESTPLATE, settings),
+			new Item.Settings().maxDamage(EquipmentType.CHESTPLATE.getMaxDamage(GreenTunicMaterial.BASE_DURABILITY))
+			.component(DataComponentTypes.UNBREAKABLE, new UnbreakableComponent(true))
+	);
+	public static final Item GREEN_TUNIC_LEGGINGS = register("green_tunic_leggings",
+			settings -> new ArmorItem(GreenTunicMaterial.INSTANCE, EquipmentType.LEGGINGS, settings),
+			new Item.Settings().maxDamage(EquipmentType.LEGGINGS.getMaxDamage(GreenTunicMaterial.BASE_DURABILITY))
+			.component(DataComponentTypes.UNBREAKABLE, new UnbreakableComponent(true))
+	);
+	public static final Item GREEN_TUNIC_BOOTS = register("green_tunic_boots",
+			settings -> new ArmorItem(GreenTunicMaterial.INSTANCE, EquipmentType.BOOTS, settings),
+			new Item.Settings().maxDamage(EquipmentType.BOOTS.getMaxDamage(GreenTunicMaterial.BASE_DURABILITY))
+				.component(DataComponentTypes.UNBREAKABLE, new UnbreakableComponent(true))
+	);
 
 	// Registering the items in the init
     public static void initialize(){
+		// INGREDIENTS-relative items
         ItemGroupEvents.modifyEntriesEvent(ItemGroups.INGREDIENTS).register((itemGroup) -> {
 			itemGroup.add(ZeldaItems.HOOKSHOT);
 			itemGroup.add(ZeldaItems.KOKIRI_SWORD);
+		});
+
+		// COMBAT-relative items
+        ItemGroupEvents.modifyEntriesEvent(ItemGroups.COMBAT).register((itemGroup) -> {
+			itemGroup.add(ZeldaItems.GREEN_TUNIC_HELMET);
+			itemGroup.add(ZeldaItems.GREEN_TUNIC_CHESTPLATE);
+			itemGroup.add(ZeldaItems.GREEN_TUNIC_LEGGINGS);
+			itemGroup.add(ZeldaItems.GREEN_TUNIC_BOOTS);
 		});
     }
 }
