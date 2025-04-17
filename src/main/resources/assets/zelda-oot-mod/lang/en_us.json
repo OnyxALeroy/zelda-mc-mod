@@ -1,5 +1,8 @@
 {
   "_comment_1": "Below are translations for items",
+  "itemGroup.zelda-oot-mod": "Zelda Items",
+
+  "_comment_2": "Below are translations for items",
   "item.zelda-oot-mod.hookshot": "Hookshot",
   "itemTooltip.zelda-oot-mod.hookshot.1": "Use it aiming at wooden",
   "itemTooltip.zelda-oot-mod.hookshot.2": "structures!",

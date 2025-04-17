@@ -9,13 +9,17 @@ import net.minecraft.component.DataComponentTypes;
 import net.minecraft.component.type.UnbreakableComponent;
 import net.minecraft.item.ArmorItem;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemGroups;
+import net.minecraft.item.ItemStack;
 import net.minecraft.item.ToolMaterial;
 import net.minecraft.item.equipment.EquipmentType;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.tag.BlockTags;
+import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
+import net.minecraft.text.Text;
 
 import onyx.items.materials.GreenTunicMaterial;
 
@@ -65,8 +69,18 @@ public class ZeldaItems {
 				.component(DataComponentTypes.UNBREAKABLE, new UnbreakableComponent(true))
 	);
 
+	// ----------------------------------------------------------------------------------------------------------------------------------------------
+
+	public static final RegistryKey<ItemGroup> ZELDA_ITEM_GROUP_KEY = RegistryKey.of(Registries.ITEM_GROUP.getKey(), Identifier.of("zelda-oot-mod", "zelda_item_group"));;
+	public static final ItemGroup ZELDA_ITEM_GROUP = FabricItemGroup.builder()
+		.icon(() -> new ItemStack(ZeldaItems.HOOKSHOT))
+		.displayName(Text.translatable("itemGroup.zelda-oot-mod"))
+		.build();
+
 	// Registering the items in the init
     public static void initialize(){
+		Registry.register(Registries.ITEM_GROUP, ZELDA_ITEM_GROUP_KEY, ZELDA_ITEM_GROUP);
+
 		// INGREDIENTS-relative items
         ItemGroupEvents.modifyEntriesEvent(ItemGroups.INGREDIENTS).register((itemGroup) -> {
 			itemGroup.add(ZeldaItems.HOOKSHOT);
@@ -75,6 +89,16 @@ public class ZeldaItems {
 
 		// COMBAT-relative items
         ItemGroupEvents.modifyEntriesEvent(ItemGroups.COMBAT).register((itemGroup) -> {
+			itemGroup.add(ZeldaItems.GREEN_TUNIC_HELMET);
+			itemGroup.add(ZeldaItems.GREEN_TUNIC_CHESTPLATE);
+			itemGroup.add(ZeldaItems.GREEN_TUNIC_LEGGINGS);
+			itemGroup.add(ZeldaItems.GREEN_TUNIC_BOOTS);
+		});
+
+		// Adding everything to the custom menu
+        ItemGroupEvents.modifyEntriesEvent(ZELDA_ITEM_GROUP_KEY).register((itemGroup) -> {
+			itemGroup.add(ZeldaItems.HOOKSHOT);
+			itemGroup.add(ZeldaItems.KOKIRI_SWORD);
 			itemGroup.add(ZeldaItems.GREEN_TUNIC_HELMET);
 			itemGroup.add(ZeldaItems.GREEN_TUNIC_CHESTPLATE);
 			itemGroup.add(ZeldaItems.GREEN_TUNIC_LEGGINGS);
