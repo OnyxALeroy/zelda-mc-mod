@@ -2,6 +2,7 @@ package onyx.items;
 
 import java.util.*;
 
+import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -16,9 +17,11 @@ import net.minecraft.util.Formatting;
 import net.minecraft.util.Hand;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.hit.HitResult;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.RaycastContext;
 import net.minecraft.world.World;
+import onyx.blocks.blockentities.HookableBlockEntity;
 import onyx.items.behaviourmanagers.HookshotHandler;
 import net.minecraft.text.Text;
 
@@ -49,6 +52,8 @@ public class Hookshot extends Item {
         }
 
         HOOK_COOLDOWNS.put(user.getUuid(), now);
+        world.playSound(null, user.getBlockPos(), SoundEvents.ITEM_CROSSBOW_SHOOT, SoundCategory.PLAYERS, 1.0F, 0.7F);
+        world.playSound(null, user.getBlockPos(), SoundEvents.ENTITY_ZOMBIE_ATTACK_IRON_DOOR, SoundCategory.PLAYERS, 0.05F, 0.7F);
 
         Vec3d start = user.getCameraPosVec(1.0F);
         Vec3d direction = user.getRotationVec(1.0F);
@@ -76,9 +81,6 @@ public class Hookshot extends Item {
         if (closestEntity != null) {
             HOOKED_ENTITIES.put(closestEntity.getUuid(), user.getUuid());
 
-            world.playSound(null, user.getBlockPos(), SoundEvents.ITEM_CROSSBOW_SHOOT, SoundCategory.PLAYERS, 1.0F, 0.7F);
-            world.playSound(null, user.getBlockPos(), SoundEvents.ENTITY_ZOMBIE_ATTACK_IRON_DOOR, SoundCategory.PLAYERS, 0.05F, 0.7F);
-
             // Tell client to animate cooldown
             if (user instanceof ServerPlayerEntity serverPlayer) {
                 ItemStack stack = user.getStackInHand(hand);
@@ -89,30 +91,25 @@ public class Hookshot extends Item {
         }
 
         // fallback: hook to block
-        HitResult hit = world.raycast(new RaycastContext(
-            start,
-            end,
-            RaycastContext.ShapeType.OUTLINE,
-            RaycastContext.FluidHandling.NONE,
-            user
-        ));
+        HitResult hit = world.raycast(new RaycastContext(start,end,RaycastContext.ShapeType.OUTLINE,RaycastContext.FluidHandling.NONE,user));
         if (hit.getType() == HitResult.Type.BLOCK) {
             BlockHitResult blockHit = (BlockHitResult) hit;
-            Vec3d hitPos = Vec3d.ofCenter(blockHit.getBlockPos());
+            BlockPos hitBlockPos = blockHit.getBlockPos();
 
-            HOOKED_PLAYERS.put(user.getUuid(), hitPos);
-            HookshotHandler.HOOK_START_TIMES.put(user.getUuid(), System.currentTimeMillis());
+            BlockEntity blockEntity = world.getBlockEntity(hitBlockPos);
+            if (blockEntity instanceof HookableBlockEntity) {
+                Vec3d hitPos = Vec3d.ofCenter(hitBlockPos);
 
-            world.playSound(null, user.getBlockPos(), SoundEvents.ITEM_CROSSBOW_SHOOT, SoundCategory.PLAYERS, 1.0F, 0.7F);
-            world.playSound(null, user.getBlockPos(), SoundEvents.ENTITY_ZOMBIE_ATTACK_IRON_DOOR, SoundCategory.PLAYERS, 0.05F, 0.7F);
+                HOOKED_PLAYERS.put(user.getUuid(), hitPos);
+                HookshotHandler.HOOK_START_TIMES.put(user.getUuid(), System.currentTimeMillis());
 
-            // Tell client to animate cooldown
-            if (user instanceof ServerPlayerEntity serverPlayer) {
-                ItemStack stack = user.getStackInHand(hand);
-                serverPlayer.getItemCooldownManager().set(stack, 20);
+                if (user instanceof ServerPlayerEntity serverPlayer) {
+                    ItemStack stack = user.getStackInHand(hand);
+                    serverPlayer.getItemCooldownManager().set(stack, 20);
+                }
+
+                return ActionResult.SUCCESS;
             }
-           
-            return ActionResult.SUCCESS;
         }
 
         return ActionResult.FAIL;
