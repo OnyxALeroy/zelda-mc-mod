@@ -1,0 +1,12 @@
+{
+  "parent": "minecraft:block/cube",
+  "textures": {
+    "up": "zelda-oot-mod:block/block_of_time_top",
+    "down": "zelda-oot-mod:block/block_of_time_top",
+    "north": "zelda-oot-mod:block/block_of_time_side",
+    "south": "zelda-oot-mod:block/block_of_time_side",
+    "west": "zelda-oot-mod:block/block_of_time_side",
+    "east": "zelda-oot-mod:block/block_of_time_side",
+    "particle": "zelda-oot-mod:block/block_of_time_side"
+  }
+}

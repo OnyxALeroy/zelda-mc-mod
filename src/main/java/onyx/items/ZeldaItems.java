@@ -3,8 +3,8 @@ package onyx.items;
 import java.util.function.Function;
 
 import net.minecraft.util.Identifier;
-import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
+import net.minecraft.registry.Registries;
 import net.minecraft.component.DataComponentTypes;
 import net.minecraft.component.type.UnbreakableComponent;
 import net.minecraft.item.ArmorItem;
@@ -74,16 +74,8 @@ public class ZeldaItems {
 
 	// ----------------------------------------------------------------------------------------------------------------------------------------------
 
-	public static final RegistryKey<ItemGroup> ZELDA_ITEM_GROUP_KEY = RegistryKey.of(Registries.ITEM_GROUP.getKey(), Identifier.of("zelda-oot-mod", "zelda_item_group"));;
-	public static final ItemGroup ZELDA_ITEM_GROUP = FabricItemGroup.builder()
-		.icon(() -> new ItemStack(ZeldaItems.HOOKSHOT))
-		.displayName(Text.translatable("itemGroup.zelda-oot-mod"))
-		.build();
-
 	// Registering the items in the init
-    public static void initialize(){
-		Registry.register(Registries.ITEM_GROUP, ZELDA_ITEM_GROUP_KEY, ZELDA_ITEM_GROUP);
-
+    public static void initialize(RegistryKey<ItemGroup> group_key){
 		// INGREDIENTS-relative items
         ItemGroupEvents.modifyEntriesEvent(ItemGroups.INGREDIENTS).register((itemGroup) -> {
 			itemGroup.add(ZeldaItems.HOOKSHOT);
@@ -99,7 +91,7 @@ public class ZeldaItems {
 		});
 
 		// Adding everything to the custom menu
-        ItemGroupEvents.modifyEntriesEvent(ZELDA_ITEM_GROUP_KEY).register((itemGroup) -> {
+        ItemGroupEvents.modifyEntriesEvent(group_key).register((itemGroup) -> {
 			itemGroup.add(ZeldaItems.HOOKSHOT);
 			itemGroup.add(ZeldaItems.KOKIRI_SWORD);
 			itemGroup.add(ZeldaItems.GREEN_TUNIC_HELMET);
