@@ -10,6 +10,7 @@ import net.minecraft.registry.RegistryKey;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import onyx.blocks.ZeldaBlocks;
+import onyx.entities.ZeldaEntities;
 import onyx.items.ZeldaItems;
 import onyx.items.behaviourmanagers.Managers;
 
@@ -27,7 +28,7 @@ public class ZeldaOOTMod implements ModInitializer {
 		.build();
 	public static final RegistryKey<ItemGroup> ZELDA_ITEM_GROUP_KEY = RegistryKey.of(Registries.ITEM_GROUP.getKey(), Identifier.of("zelda-oot-mod", "zelda_item_group"));;
 	public static final ItemGroup ZELDA_ITEM_GROUP = FabricItemGroup.builder()
-		.icon(() -> new ItemStack(ZeldaItems.HOOKSHOT))
+		.icon(() -> new ItemStack(ZeldaItems.OCARINA_OF_TIME))
 		.displayName(Text.translatable("itemGroup.zelda-oot-mod.item_group"))
 		.build();
 
@@ -45,6 +46,7 @@ public class ZeldaOOTMod implements ModInitializer {
 		// Initializers
 		ZeldaBlocks.initialize(ZELDA_BLOCK_GROUP_KEY);
 		ZeldaItems.initialize(ZELDA_ITEM_GROUP_KEY);
+		ZeldaEntities.initialize();
 		Managers.initialize();
 	}
 }

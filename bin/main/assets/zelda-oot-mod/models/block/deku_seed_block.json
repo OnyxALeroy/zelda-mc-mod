@@ -1,0 +1,12 @@
+{
+  "parent": "minecraft:block/cube",
+  "textures": {
+    "up": "zelda-oot-mod:block/deku_seed_block_tbb",
+    "down": "zelda-oot-mod:block/deku_seed_block_tbb",
+    "north": "zelda-oot-mod:block/deku_seed_block_front",
+    "south": "zelda-oot-mod:block/deku_seed_block_tbb",
+    "west": "zelda-oot-mod:block/deku_seed_block_left",
+    "east": "zelda-oot-mod:block/deku_seed_block_right",
+    "particle": "zelda-oot-mod:block/deku_seed_block_tbb"
+  }
+}

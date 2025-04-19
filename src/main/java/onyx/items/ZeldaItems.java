@@ -10,16 +10,12 @@ import net.minecraft.component.type.UnbreakableComponent;
 import net.minecraft.item.ArmorItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
-import net.minecraft.item.ItemGroups;
-import net.minecraft.item.ItemStack;
 import net.minecraft.item.ToolMaterial;
 import net.minecraft.item.equipment.EquipmentType;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.tag.BlockTags;
-import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
-import net.minecraft.text.Text;
 
 import onyx.items.materials.*;
 
@@ -43,12 +39,18 @@ public class ZeldaItems {
 
 	// Items to register ----------------------------------------------------------------------------------------------------------------------------
 
+	// Items
+    public static final Item OCARINA_OF_TIME = register("ocarina_of_time", OcarinaOfTime::new, new Item.Settings());
+    public static final Item SLINGSHOT = register("slingshot", Slingshot::new, new Item.Settings());
+    public static final Item DEKU_SEED = register("deku_seed", Item::new, new Item.Settings());
     public static final Item HOOKSHOT = register("hookshot", Hookshot::new, new Item.Settings());
 	public static final Item KOKIRI_SWORD = register(
 			"kokiri_sword",
 			settings -> new UnbreakableSword(KOKIRI_SWORD_TOOL, 1f, 1f, settings),
 			new Item.Settings()
 	);
+
+	// Armors
 	public static final Item GREEN_TUNIC_HELMET = register("green_tunic_helmet",
 		settings -> new ArmorItem(GreenTunicMaterial.INSTANCE, EquipmentType.HELMET, settings),
 		new Item.Settings().maxDamage(EquipmentType.HELMET.getMaxDamage(GreenTunicMaterial.BASE_DURABILITY))
@@ -70,35 +72,20 @@ public class ZeldaItems {
 				.component(DataComponentTypes.UNBREAKABLE, new UnbreakableComponent(true))
 	);
 
-    public static final Item HOOKING_STICK = register("hooking_stick", HookingStick::new, new Item.Settings());
-
 	// ----------------------------------------------------------------------------------------------------------------------------------------------
 
 	// Registering the items in the init
     public static void initialize(RegistryKey<ItemGroup> group_key){
-		// INGREDIENTS-relative items
-        ItemGroupEvents.modifyEntriesEvent(ItemGroups.INGREDIENTS).register((itemGroup) -> {
-			itemGroup.add(ZeldaItems.HOOKSHOT);
-			itemGroup.add(ZeldaItems.KOKIRI_SWORD);
-		});
-
-		// COMBAT-relative items
-        ItemGroupEvents.modifyEntriesEvent(ItemGroups.COMBAT).register((itemGroup) -> {
-			itemGroup.add(ZeldaItems.GREEN_TUNIC_HELMET);
-			itemGroup.add(ZeldaItems.GREEN_TUNIC_CHESTPLATE);
-			itemGroup.add(ZeldaItems.GREEN_TUNIC_LEGGINGS);
-			itemGroup.add(ZeldaItems.GREEN_TUNIC_BOOTS);
-		});
-
-		// Adding everything to the custom menu
         ItemGroupEvents.modifyEntriesEvent(group_key).register((itemGroup) -> {
+			itemGroup.add(ZeldaItems.OCARINA_OF_TIME);
+			itemGroup.add(ZeldaItems.SLINGSHOT);
+			itemGroup.add(ZeldaItems.DEKU_SEED);
 			itemGroup.add(ZeldaItems.HOOKSHOT);
 			itemGroup.add(ZeldaItems.KOKIRI_SWORD);
 			itemGroup.add(ZeldaItems.GREEN_TUNIC_HELMET);
 			itemGroup.add(ZeldaItems.GREEN_TUNIC_CHESTPLATE);
 			itemGroup.add(ZeldaItems.GREEN_TUNIC_LEGGINGS);
 			itemGroup.add(ZeldaItems.GREEN_TUNIC_BOOTS);
-			itemGroup.add(ZeldaItems.HOOKING_STICK);
 		});
     }
 }

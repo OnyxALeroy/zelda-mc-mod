@@ -53,6 +53,14 @@ public class ZeldaBlocks {
         true
     );
 
+    // "Fake" blocks, used for rendering
+    public static final Block DEKU_SEED_BLOCK = register(
+        "deku_seed_block",
+        Block::new,
+        AbstractBlock.Settings.create().sounds(BlockSoundGroup.BAMBOO),
+        false
+    );
+
 	// ----------------------------------------------------------------------------------------------------------------------------------------------
 
     public static void initialize(RegistryKey<ItemGroup> group_key) {

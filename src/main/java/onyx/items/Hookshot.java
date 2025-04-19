@@ -51,14 +51,18 @@ public class Hookshot extends Item {
             return ActionResult.FAIL;
         }
 
-        HOOK_COOLDOWNS.put(user.getUuid(), now);
+        // Using the item (sound + cooldown)
         world.playSound(null, user.getBlockPos(), SoundEvents.ITEM_CROSSBOW_SHOOT, SoundCategory.PLAYERS, 1.0F, 0.7F);
         world.playSound(null, user.getBlockPos(), SoundEvents.ENTITY_ZOMBIE_ATTACK_IRON_DOOR, SoundCategory.PLAYERS, 0.05F, 0.7F);
+        HOOK_COOLDOWNS.put(user.getUuid(), now);
+        if (user instanceof ServerPlayerEntity serverPlayer) {
+            ItemStack stack = user.getStackInHand(hand);
+            serverPlayer.getItemCooldownManager().set(stack, 20);
+        }
 
         Vec3d start = user.getCameraPosVec(1.0F);
         Vec3d direction = user.getRotationVec(1.0F);
         Vec3d end = start.add(direction.multiply(20));
-
         List<Entity> candidates = world.getOtherEntities(user, user.getBoundingBox().expand(20), entity ->
             entity instanceof LivingEntity &&
             entity.isAlive() &&
@@ -80,13 +84,6 @@ public class Hookshot extends Item {
         }
         if (closestEntity != null) {
             HOOKED_ENTITIES.put(closestEntity.getUuid(), user.getUuid());
-
-            // Tell client to animate cooldown
-            if (user instanceof ServerPlayerEntity serverPlayer) {
-                ItemStack stack = user.getStackInHand(hand);
-                serverPlayer.getItemCooldownManager().set(stack, 20);
-            }
-
             return ActionResult.SUCCESS;
         }
 
@@ -95,19 +92,11 @@ public class Hookshot extends Item {
         if (hit.getType() == HitResult.Type.BLOCK) {
             BlockHitResult blockHit = (BlockHitResult) hit;
             BlockPos hitBlockPos = blockHit.getBlockPos();
-
             BlockEntity blockEntity = world.getBlockEntity(hitBlockPos);
             if (blockEntity instanceof HookableBlockEntity) {
                 Vec3d hitPos = Vec3d.ofCenter(hitBlockPos);
-
                 HOOKED_PLAYERS.put(user.getUuid(), hitPos);
                 HookshotHandler.HOOK_START_TIMES.put(user.getUuid(), System.currentTimeMillis());
-
-                if (user instanceof ServerPlayerEntity serverPlayer) {
-                    ItemStack stack = user.getStackInHand(hand);
-                    serverPlayer.getItemCooldownManager().set(stack, 20);
-                }
-
                 return ActionResult.SUCCESS;
             }
         }

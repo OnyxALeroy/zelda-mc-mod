@@ -4,13 +4,17 @@
   "itemGroup.zelda-oot-mod.item_group": "Zelda Items",
 
   "_comment_2": "Below are translations for items -------------------------------------------------------------------------------",
-  "_comment_3": "Below are translations for hookshot-relative items",
+  "item.zelda-oot-mod.ocarina_of_time": "Ocarina of Time",
+
+  "item.zelda-oot-mod.slingshot": "Slingshot",
+  "itemTooltip.zelda-oot-mod.slingshot.1": "You need Deku Seeds",
+  "itemTooltip.zelda-oot-mod.slingshot.2": "to use the slingshot!",
+  "item.zelda-oot-mod.deku_seed": "Deku Seed",
+  "itemTooltip.zelda-oot-mod.deku_seed.1": "Slingshot's ammunition",
+
   "item.zelda-oot-mod.hookshot": "Hookshot",
-  "itemTooltip.zelda-oot-mod.hookshot.1": "Use it aiming at wooden",
-  "itemTooltip.zelda-oot-mod.hookshot.2": "structures!",
-  "item.zelda-oot-mod.hooking_stick": "Hooking Stick",
-  "itemTooltip.zelda-oot-mod.hooking_stick.1": "Right-click on a block",
-  "itemTooltip.zelda-oot-mod.hooking_stick.2": "to make it hookable or not!",
+  "itemTooltip.zelda-oot-mod.hookshot.1": "Use it aiming at targets",
+  "itemTooltip.zelda-oot-mod.hookshot.2": "and treasure chests!",
 
   "item.zelda-oot-mod.kokiri_sword": "Kokiri Sword",
 
@@ -19,9 +23,10 @@
   "item.zelda-oot-mod.green_tunic_leggings": "Green Tunic Leggings",
   "item.zelda-oot-mod.green_tunic_boots": "Green Tunic Boots",
 
-  "_comment_4": "Below are translations for items -------------------------------------------------------------------------------",
+  "_comment_3": "Below are translations for items -------------------------------------------------------------------------------",
   "block.zelda-oot-mod.block_of_time": "Block of Time",
   "item.zelda-oot-mod.block_of_time": "Block of Time",
   "block.zelda-oot-mod.hook_target": "Hook Target",
-  "item.zelda-oot-mod.hook_target": "Hook Target"
+  "item.zelda-oot-mod.hook_target": "Hook Target",
+  "block.zelda-oot-mod.deku_seed_block": "Deku Seed Block"
 }

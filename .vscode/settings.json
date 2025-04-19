@@ -1,7 +1,11 @@
 {
+  "java.project.sourcePaths": ["src/main/java", "src/client/java"],
+  "java.project.outputPath": "build/classes/java/main",
   "cSpell.words": [
     "behaviourmanagers",
     "blockentities",
+    "deku",
+    "DEKU",
     "hookable",
     "HOOKABLE",
     "Hookshot",
