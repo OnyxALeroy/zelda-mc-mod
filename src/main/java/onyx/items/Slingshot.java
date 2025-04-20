@@ -34,7 +34,7 @@ public class Slingshot extends Item {
         }
 
         // Check cooldown using SlingshotCooldownHandler
-        if (SlingshotHandler.canUseSlingshot((ServerPlayerEntity) user)) {
+        if (SlingshotHandler.canUseSlingshot(user)) {
             if (world.isClient()) {
                 return ActionResult.PASS;
             }
@@ -43,7 +43,7 @@ public class Slingshot extends Item {
                 serverPlayer.getItemCooldownManager().set(stack, cooldownDuration);
             }
             useSlingshot(world, user, false);
-            SlingshotHandler.onSlingshotUsed((ServerPlayerEntity) user);
+            SlingshotHandler.onSlingshotUsed(user);
             return ActionResult.SUCCESS;
         } else {
             // Player is still on cooldown

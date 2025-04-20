@@ -1,7 +1,7 @@
 package onyx.items.behaviourmanagers;
 
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
-import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.entity.player.PlayerEntity;
 
 import onyx.items.Slingshot;
 
@@ -26,7 +26,7 @@ public class SlingshotHandler {
                 long lastUsedTime = entry.getValue();
 
                 // Get the player from the server
-                ServerPlayerEntity player = world.getServer().getPlayerManager().getPlayer(uuid);
+                PlayerEntity player = world.getServer().getPlayerManager().getPlayer(uuid);
                 if (player == null) {
                     iterator.remove(); // If player is no longer online, remove them from the cooldown map
                     continue;
@@ -42,14 +42,14 @@ public class SlingshotHandler {
     }
 
     // Method to check if the player can use the slingshot (i.e., if they are off cooldown)
-    public static boolean canUseSlingshot(ServerPlayerEntity player) {
+    public static boolean canUseSlingshot(PlayerEntity player) {
         long now = System.currentTimeMillis();
         long lastUsedTime = SLINGSHOT_LAST_USED.getOrDefault(player.getUuid(), 0L);
         return now - lastUsedTime > SLINGSHOT_COOLDOWN_MS;
     }
 
     // Method to update the cooldown after the player uses the slingshot
-    public static void onSlingshotUsed(ServerPlayerEntity player) {
+    public static void onSlingshotUsed(PlayerEntity player) {
         SLINGSHOT_LAST_USED.put(player.getUuid(), System.currentTimeMillis());
     }
 }
