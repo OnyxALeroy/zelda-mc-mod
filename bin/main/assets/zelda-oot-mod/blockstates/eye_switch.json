@@ -1,0 +1,53 @@
+{
+  "variants": {
+    "facing=north,vertical=false": {
+      "model": "zelda-oot-mod:block/eye_switch",
+      "y": 180
+    },
+    "facing=south,vertical=false": {
+      "model": "zelda-oot-mod:block/eye_switch"
+    },
+    "facing=west,vertical=false": {
+      "model": "zelda-oot-mod:block/eye_switch",
+      "y": 90
+    },
+    "facing=east,vertical=false": {
+      "model": "zelda-oot-mod:block/eye_switch",
+      "y": 270
+    },
+
+    "facing=north,vertical=true": {
+      "model": "zelda-oot-mod:block/eye_switch_vertical",
+      "y": 180
+    },
+    "facing=south,vertical=true": {
+      "model": "zelda-oot-mod:block/eye_switch_vertical"
+    },
+    "facing=west,vertical=true": {
+      "model": "zelda-oot-mod:block/eye_switch_vertical",
+      "y": 90
+    },
+    "facing=east,vertical=true": {
+      "model": "zelda-oot-mod:block/eye_switch_vertical",
+      "y": 270
+    },
+
+    "facing=up,vertical=false": {
+      "model": "zelda-oot-mod:block/eye_switch",
+      "x": 270
+    },
+    "facing=down,vertical=false": {
+      "model": "zelda-oot-mod:block/eye_switch",
+      "x": 90
+    },
+
+    "facing=up,vertical=true": {
+      "model": "zelda-oot-mod:block/eye_switch_vertical",
+      "x": 270
+    },
+    "facing=down,vertical=true": {
+      "model": "zelda-oot-mod:block/eye_switch_vertical",
+      "x": 90
+    }
+  }
+}

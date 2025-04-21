@@ -53,6 +53,13 @@ public class ZeldaBlocks {
         true
     );
 
+    public static final Block EYE_SWITCH = register(
+        "eye_switch",
+        EyeSwitch::new,
+        AbstractBlock.Settings.create().sounds(BlockSoundGroup.AMETHYST_CLUSTER).nonOpaque(),
+        true
+    );
+
     // "Fake" blocks, used for rendering
     public static final Block DEKU_SEED_BLOCK = register(
         "deku_seed_block",
@@ -68,6 +75,7 @@ public class ZeldaBlocks {
         ItemGroupEvents.modifyEntriesEvent(group_key).register((itemGroup) -> {
             itemGroup.add(ZeldaBlocks.BLOCK_OF_TIME.asItem());
             itemGroup.add(ZeldaBlocks.HOOK_TARGET.asItem());
+            itemGroup.add(ZeldaBlocks.EYE_SWITCH.asItem());
         });
     }
 }

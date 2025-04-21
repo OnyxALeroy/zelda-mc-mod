@@ -20,9 +20,12 @@ public class ZeldaBlockEntities {
 
 
 	// Blocks to register ---------------------------------------------------------------------------------------------------------------------------
-    
+
     public static final BlockEntityType<HookableBlockEntity> HOOKABLE_BLOCK_ENTITY =
-        register("counter", HookableBlockEntity::new, ZeldaBlocks.HOOK_TARGET);
+        register("hookable", HookableBlockEntity::new, ZeldaBlocks.HOOK_TARGET);
+
+	public static final BlockEntityType<EyeSwitchEntity> EYE_SWITCH_ENTITY =
+		register("eye_switch", EyeSwitchEntity::new, ZeldaBlocks.EYE_SWITCH);
 
     public static void initialize() {}
 }
