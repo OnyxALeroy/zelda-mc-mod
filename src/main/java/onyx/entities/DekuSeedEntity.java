@@ -1,5 +1,7 @@
 package onyx.entities;
 
+import net.minecraft.block.Block;
+import net.minecraft.block.BlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.FlyingItemEntity;
@@ -10,10 +12,14 @@ import net.minecraft.entity.projectile.PersistentProjectileEntity;
 import net.minecraft.entity.projectile.ProjectileEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.registry.tag.EntityTypeTags;
+import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
+import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.hit.EntityHitResult;
 import net.minecraft.util.hit.HitResult;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import onyx.blocks.EyeSwitch;
 import onyx.items.ZeldaItems;
 
 public class DekuSeedEntity extends PersistentProjectileEntity implements FlyingItemEntity {
@@ -88,6 +94,23 @@ public class DekuSeedEntity extends PersistentProjectileEntity implements Flying
 			}
 			this.onEntityHit(entityHitResult);
 		} else if (type == HitResult.Type.BLOCK) {
+            BlockHitResult blockHit = (BlockHitResult) hitResult;
+            BlockPos pos = blockHit.getBlockPos();
+            World world = this.getWorld();
+            BlockState state = world.getBlockState(pos);
+
+            if (!world.isClient && state.getBlock() instanceof EyeSwitch eyeSwitch) {
+                // Toggle state
+                boolean isActive = state.get(EyeSwitch.ACTIVATED);
+                world.setBlockState(pos, state.with(EyeSwitch.ACTIVATED, !isActive), Block.NOTIFY_ALL);
+
+                // Sound effect
+                world.playSound(null, pos, SoundEvents.BLOCK_LEVER_CLICK, SoundCategory.BLOCKS, 0.6F, isActive ? 0.5F : 0.6F);
+
+                // Redstone update
+                world.updateNeighborsAlways(pos, eyeSwitch);
+            }
+
             this.discard();
 		}
     }
