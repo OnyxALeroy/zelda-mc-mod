@@ -16,8 +16,9 @@ import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.tag.BlockTags;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
-
+import onyx.components.ZeldaComponents;
 import onyx.items.materials.*;
+import onyx.items.rupees.*;
 
 public class ZeldaItems {
     // Registerer
@@ -38,6 +39,14 @@ public class ZeldaItems {
 	public static final ToolMaterial KOKIRI_SWORD_TOOL = new ToolMaterial(BlockTags.INCORRECT_FOR_WOODEN_TOOL, 0, 0, 0, 999, null);
 
 	// Items to register ----------------------------------------------------------------------------------------------------------------------------
+
+	// Rupee-relative objects
+    public static final Item RUPEES_WALLET = register("rupees_wallet", RupeesWallet::new, new Item.Settings().component(ZeldaComponents.RUBIES_POSSESSED, 0));
+    public static final Item GREEN_RUPEE = register("green_rupee", GreenRupee::new, new Item.Settings());
+    public static final Item BLUE_RUPEE = register("blue_rupee", BlueRupee::new, new Item.Settings());
+    public static final Item RED_RUPEE = register("red_rupee", RedRupee::new, new Item.Settings());
+    public static final Item PURPLE_RUPEE = register("purple_rupee", PurpleRupee::new, new Item.Settings());
+    public static final Item GOLD_RUPEE = register("gold_rupee", GoldRupee::new, new Item.Settings());
 
 	// Items
     public static final Item OCARINA_OF_TIME = register("ocarina_of_time", OcarinaOfTime::new, new Item.Settings());
@@ -77,6 +86,15 @@ public class ZeldaItems {
 	// Registering the items in the init
     public static void initialize(RegistryKey<ItemGroup> group_key){
         ItemGroupEvents.modifyEntriesEvent(group_key).register((itemGroup) -> {
+			// Rupee-relative objects
+			itemGroup.add(ZeldaItems.RUPEES_WALLET);
+			itemGroup.add(ZeldaItems.GREEN_RUPEE);
+			itemGroup.add(ZeldaItems.BLUE_RUPEE);
+			itemGroup.add(ZeldaItems.RED_RUPEE);
+			itemGroup.add(ZeldaItems.PURPLE_RUPEE);
+			itemGroup.add(ZeldaItems.GOLD_RUPEE);
+
+			// Items
 			itemGroup.add(ZeldaItems.OCARINA_OF_TIME);
 			itemGroup.add(ZeldaItems.SLINGSHOT);
 			itemGroup.add(ZeldaItems.DEKU_SEED);
