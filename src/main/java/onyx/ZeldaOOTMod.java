@@ -2,17 +2,22 @@ package onyx;
 
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
+import net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry;
+import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.registry.RegistryKey;
+import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import onyx.blocks.ZeldaBlocks;
 import onyx.entities.ZeldaEntities;
 import onyx.items.ZeldaItems;
 import onyx.items.behaviourmanagers.Managers;
+import onyx.server.GiveRupeeC2SPayload;
+import onyx.server.OpenRupeeWalletS2CPayload;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -48,5 +53,27 @@ public class ZeldaOOTMod implements ModInitializer {
 		ZeldaItems.initialize(ZELDA_ITEM_GROUP_KEY);
 		ZeldaEntities.initialize();
 		Managers.initialize();
+		this.initializeAllPayloads();
+	}
+
+	// --------------------------------------------------------------------------------------------
+	
+	private void initializeAllPayloads(){
+		PayloadTypeRegistry.playC2S().register(GiveRupeeC2SPayload.ID, GiveRupeeC2SPayload.CODEC);
+		PayloadTypeRegistry.playS2C().register(OpenRupeeWalletS2CPayload.ID, OpenRupeeWalletS2CPayload.CODEC);
+
+		ServerPlayNetworking.registerGlobalReceiver(GiveRupeeC2SPayload.ID, (payload, context) -> {
+			    ServerPlayerEntity player = context.player();
+
+		    context.server().execute(() -> {
+					ItemStack stack = new ItemStack(payload.rupee().getItem(), 1);
+					boolean added = player.getInventory().insertStack(stack);
+
+					if (!added || !stack.isEmpty()){
+						// Dropping the item on the ground
+						player.dropItem(stack, false);
+					}
+			});
+		});
 	}
 }

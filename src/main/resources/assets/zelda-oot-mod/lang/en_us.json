@@ -11,6 +11,7 @@
   "itemTooltip.zelda-oot-mod.rupees_wallet.info": "Contains %1$s Rupees",
   "itemTooltip.zelda-oot-mod.rupees_wallet.info_max": "Max Capacity: %1$s Rupees",
   "itemTooltip.zelda-oot-mod.rupees_wallet.maxReached": "Your wallet is full!",
+  "itemTooltip.zelda-oot-mod.rupees_wallet.no_rupee_left": "You have not enough Rupees left here!",
   "itemTooltip.zelda-oot-mod.rupees_wallet.1": "Right-Click: open the wallet ;",
   "itemTooltip.zelda-oot-mod.rupees_wallet.2": "Shift Right-Click: auto-store",
   "itemTooltip.zelda-oot-mod.rupees_wallet.3": "all possessed Rupees.",

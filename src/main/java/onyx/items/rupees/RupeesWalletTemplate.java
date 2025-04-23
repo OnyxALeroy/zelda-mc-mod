@@ -2,10 +2,14 @@ package onyx.items.rupees;
 
 import java.util.List;
 
+import net.fabricmc.fabric.api.networking.v1.PlayerLookup;
+import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.tooltip.TooltipType;
+import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.text.Text;
@@ -16,6 +20,7 @@ import net.minecraft.world.World;
 
 import onyx.components.ZeldaComponents;
 import onyx.items.ZeldaItems;
+import onyx.server.OpenRupeeWalletS2CPayload;
 
 public abstract class RupeesWalletTemplate extends Item {
     public RupeesWalletTemplate(Settings settings) { super(settings); }
@@ -73,9 +78,10 @@ public abstract class RupeesWalletTemplate extends Item {
 
             return ActionResult.SUCCESS;
         } else {
-            // TODO: open the wallet
-
-            wallet_stack.set(ZeldaComponents.RUBIES_POSSESSED, rupees - 1);
+            OpenRupeeWalletS2CPayload payload = new OpenRupeeWalletS2CPayload(user.getId(), hand.ordinal());
+            for (ServerPlayerEntity player : PlayerLookup.world((ServerWorld) world)) {
+                ServerPlayNetworking.send(player, payload);
+            }
 
             return ActionResult.SUCCESS;
         }
