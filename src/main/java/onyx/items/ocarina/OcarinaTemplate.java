@@ -20,7 +20,7 @@ public abstract class OcarinaTemplate extends Item {
     public ActionResult use(World world, PlayerEntity user, Hand hand) {
         if (world.isClient()) { return ActionResult.PASS; }
 
-        UseOcarinaS2CPayload payload = new UseOcarinaS2CPayload(this.getOcarinaName());
+        UseOcarinaS2CPayload payload = new UseOcarinaS2CPayload();
         for (ServerPlayerEntity player : PlayerLookup.world((ServerWorld) world)) {
             ServerPlayNetworking.send(player, payload);
         }

@@ -15,16 +15,14 @@ import net.minecraft.util.Identifier;
 @Environment(EnvType.CLIENT)
 public class UsingOcarinaScreen extends Screen {
     public Screen parent;
-    private String ocarinaName;
-    private static final Identifier BACKGROUND_TEXTURE = Identifier.of("zelda-oot-mod", "textures/gui/wallet_insides.png");
+    private static Identifier BACKGROUND_TEXTURE = Identifier.of("zelda-oot-mod", "textures/gui/ocarina.png");
     private static final int BG_WIDTH = 176;
     private static final int BG_HEIGHT = 166;
     private static final Function<Identifier, RenderLayer> GUI_LAYER = (id) -> RenderLayer.getGui();
 
-    public UsingOcarinaScreen(Screen parent, String ocarinaName){
-        super(Text.of(ocarinaName));
+    public UsingOcarinaScreen(Screen parent){
+        super(Text.empty());
         this.parent = parent;
-        this.ocarinaName = ocarinaName;
     }
 
 	@Override
