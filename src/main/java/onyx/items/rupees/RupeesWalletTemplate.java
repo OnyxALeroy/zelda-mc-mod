@@ -29,12 +29,12 @@ public abstract class RupeesWalletTemplate extends Item {
 
     @Override
     public void appendTooltip(ItemStack stack, TooltipContext context, List<Text> tooltip, TooltipType type) {
-        int count = stack.get(ZeldaComponents.RUBIES_POSSESSED);
-        tooltip.add(Text.translatable("itemTooltip.zelda-oot-mod.rupees_wallet.info", count).formatted(Formatting.AQUA));
-        tooltip.add(Text.translatable("itemTooltip.zelda-oot-mod.rupees_wallet.info_max", this.getCapacity()).formatted(Formatting.AQUA));
-        tooltip.add(Text.translatable("itemTooltip.zelda-oot-mod.rupees_wallet.1").formatted(Formatting.GOLD));
-        tooltip.add(Text.translatable("itemTooltip.zelda-oot-mod.rupees_wallet.2").formatted(Formatting.GOLD));
-        tooltip.add(Text.translatable("itemTooltip.zelda-oot-mod.rupees_wallet.3").formatted(Formatting.GOLD));
+        int count = stack.get(ZeldaComponents.RUPEES_POSSESSED);
+        tooltip.add(Text.translatable("itemTooltip.zelda-oot-mod.rupee_wallet.info", count).formatted(Formatting.AQUA));
+        tooltip.add(Text.translatable("itemTooltip.zelda-oot-mod.rupee_wallet.info_max", this.getCapacity()).formatted(Formatting.AQUA));
+        tooltip.add(Text.translatable("itemTooltip.zelda-oot-mod.rupee_wallet.1").formatted(Formatting.GOLD));
+        tooltip.add(Text.translatable("itemTooltip.zelda-oot-mod.rupee_wallet.2").formatted(Formatting.GOLD));
+        tooltip.add(Text.translatable("itemTooltip.zelda-oot-mod.rupee_wallet.3").formatted(Formatting.GOLD));
     }
 
     @Override
@@ -46,7 +46,7 @@ public abstract class RupeesWalletTemplate extends Item {
 
         // Get or set the value stored on this item
         ItemStack wallet_stack = user.getStackInHand(hand);
-        int rupees = wallet_stack.getOrDefault(ZeldaComponents.RUBIES_POSSESSED, 0);
+        int rupees = wallet_stack.getOrDefault(ZeldaComponents.RUPEES_POSSESSED, 0);
 
         if (user.isSneaking()){
             for (int i = 0; i < user.getInventory().size(); i++) {
@@ -63,7 +63,7 @@ public abstract class RupeesWalletTemplate extends Item {
                         } else {
                             if (!hasMaxCapacityReached){
                                 user.sendMessage(
-                                    Text.translatable("itemTooltip.zelda-oot-mod.rupees_wallet.max_reached").formatted(Formatting.RED, Formatting.BOLD, Formatting.ITALIC),
+                                    Text.translatable("itemTooltip.zelda-oot-mod.rupee_wallet.max_reached").formatted(Formatting.RED, Formatting.BOLD, Formatting.ITALIC),
                                     true
                                 );
                                 hasMaxCapacityReached = true;
@@ -74,7 +74,7 @@ public abstract class RupeesWalletTemplate extends Item {
                 }
             }
 
-            wallet_stack.set(ZeldaComponents.RUBIES_POSSESSED, rupees);
+            wallet_stack.set(ZeldaComponents.RUPEES_POSSESSED, rupees);
 
             return ActionResult.SUCCESS;
         } else {

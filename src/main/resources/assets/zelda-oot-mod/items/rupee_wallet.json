@@ -1,6 +1,6 @@
 {
   "model": {
     "type": "minecraft:model",
-    "model": "zelda-oot-mod:item/rupees_wallet"
+    "model": "zelda-oot-mod:item/rupee_wallet"
   }
 }

@@ -14,7 +14,7 @@ public class ZeldaComponents {
         ComponentType.<Boolean>builder().codec(Codec.BOOL).build()
     );
 
-    public static final ComponentType<Integer> RUBIES_POSSESSED = Registry.register(
+    public static final ComponentType<Integer> RUPEES_POSSESSED = Registry.register(
         Registries.DATA_COMPONENT_TYPE,
         Identifier.of("zelda-oot-mod", "rubies_possessed"),
         ComponentType.<Integer>builder().codec(Codec.INT).build()

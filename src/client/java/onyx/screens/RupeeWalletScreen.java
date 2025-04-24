@@ -136,10 +136,10 @@ public class RupeeWalletScreen extends Screen {
     }
     private void renderAvailableAmount(DrawContext context){
         int centerX = this.width / 2;
-        int currentRupees = walletStack.getOrDefault(ZeldaComponents.RUBIES_POSSESSED, 0);
+        int currentRupees = walletStack.getOrDefault(ZeldaComponents.RUPEES_POSSESSED, 0);
 
         // Draw "Available Rupees: X" text
-        Text availableText = Text.translatable("itemTooltip.zelda-oot-mod.rupees_wallet.available_rupees", currentRupees).formatted(Formatting.GREEN);
+        Text availableText = Text.translatable("itemTooltip.zelda-oot-mod.rupee_wallet.available_rupees", currentRupees).formatted(Formatting.GREEN);
         context.drawText(
             this.textRenderer,
             availableText,
@@ -154,7 +154,7 @@ public class RupeeWalletScreen extends Screen {
         int centerX = this.width / 2;
         
         // Title for the added rupees section
-        Text titleText = Text.translatable("itemTooltip.zelda-oot-mod.rupees_wallet.rupees_added").formatted(Formatting.GOLD);
+        Text titleText = Text.translatable("itemTooltip.zelda-oot-mod.rupee_wallet.rupees_added").formatted(Formatting.GOLD);
         context.drawText(
             this.textRenderer,
             titleText,
@@ -219,7 +219,7 @@ public class RupeeWalletScreen extends Screen {
     @Override
     public boolean mouseClicked(double mouseX, double mouseY, int button) {
         if (this.client != null || this.client.player != null){
-            int currentRupees = walletStack.getOrDefault(ZeldaComponents.RUBIES_POSSESSED, 0);
+            int currentRupees = walletStack.getOrDefault(ZeldaComponents.RUPEES_POSSESSED, 0);
             for (SlotInfo slot : rupeeSlots) {
                 if (slot.contains((int) mouseX, (int) mouseY)) {
                     Rupee selectedRupee = (Rupee) slot.stack.copy().getItem();
@@ -229,13 +229,13 @@ public class RupeeWalletScreen extends Screen {
                         ClientPlayNetworking.send(payload);
 
                         // Decrementing the wallet's capacity and adding the transaction to the history
-                        walletStack.set(ZeldaComponents.RUBIES_POSSESSED, currentRupees - selectedRupee.getValue());
+                        walletStack.set(ZeldaComponents.RUPEES_POSSESSED, currentRupees - selectedRupee.getValue());
                         addedRupees.computeIfPresent(selectedRupee.getValue(), (k, v) -> v + 1);
 
                         return true;
                     } else {
                         this.client.getToastManager().add(
-                            SystemToast.create(this.client, SystemToast.Type.NARRATOR_TOGGLE, Text.translatable("itemTooltip.zelda-oot-mod.rupees_wallet.no_rupee_left.title"), Text.translatable("itemTooltip.zelda-oot-mod.rupees_wallet.no_rupee_left.text"))
+                            SystemToast.create(this.client, SystemToast.Type.NARRATOR_TOGGLE, Text.translatable("itemTooltip.zelda-oot-mod.rupee_wallet.no_rupee_left.title"), Text.translatable("itemTooltip.zelda-oot-mod.rupee_wallet.no_rupee_left.text"))
                         );
                         return false;
                     }

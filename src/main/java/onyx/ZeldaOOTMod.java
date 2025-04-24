@@ -18,6 +18,7 @@ import onyx.items.ZeldaItems;
 import onyx.items.behaviourmanagers.Managers;
 import onyx.server.GiveRupeeC2SPayload;
 import onyx.server.OpenRupeeWalletS2CPayload;
+import onyx.server.UseOcarinaS2CPayload;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -61,6 +62,7 @@ public class ZeldaOOTMod implements ModInitializer {
 	private void initializeAllPayloads(){
 		PayloadTypeRegistry.playC2S().register(GiveRupeeC2SPayload.ID, GiveRupeeC2SPayload.CODEC);
 		PayloadTypeRegistry.playS2C().register(OpenRupeeWalletS2CPayload.ID, OpenRupeeWalletS2CPayload.CODEC);
+		PayloadTypeRegistry.playS2C().register(UseOcarinaS2CPayload.ID, UseOcarinaS2CPayload.CODEC);
 
 		ServerPlayNetworking.registerGlobalReceiver(GiveRupeeC2SPayload.ID, (payload, context) -> {
 			    ServerPlayerEntity player = context.player();

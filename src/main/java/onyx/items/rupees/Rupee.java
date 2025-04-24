@@ -35,14 +35,14 @@ public abstract class Rupee extends Item {
         for (int i = 0; i < user.getInventory().size(); i++) {
             ItemStack stack = user.getInventory().getStack(i);
 
-            if (stack.getItem() == ZeldaItems.RUPEES_WALLET) {
+            if (stack.getItem() == ZeldaItems.RUPEE_WALLET || stack.getItem() == ZeldaItems.ADULT_RUPEE_WALLET || stack.getItem() == ZeldaItems.GIANT_RUPEE_WALLET) {
                 wallet = stack;
                 break;
             }
         }
 
         if (wallet != null){
-            int rupees = wallet.getOrDefault(ZeldaComponents.RUBIES_POSSESSED, 0);
+            int rupees = wallet.getOrDefault(ZeldaComponents.RUPEES_POSSESSED, 0);
             RupeesWalletTemplate walletTemplate = (RupeesWalletTemplate) wallet.getItem();
             int maxCapacity = walletTemplate.getCapacity();
 
@@ -55,7 +55,7 @@ public abstract class Rupee extends Item {
                 }
                 if (rupeesAdded != rupee_stack.getCount()){
                     user.sendMessage(
-                        Text.translatable("itemTooltip.zelda-oot-mod.rupees_wallet.max_reached").formatted(Formatting.RED, Formatting.BOLD, Formatting.ITALIC),
+                        Text.translatable("itemTooltip.zelda-oot-mod.rupee_wallet.max_reached").formatted(Formatting.RED, Formatting.BOLD, Formatting.ITALIC),
                         true
                     );
                 }
@@ -68,13 +68,13 @@ public abstract class Rupee extends Item {
                     rupee_stack.decrement(1);
                 } else {
                     user.sendMessage(
-                        Text.translatable("itemTooltip.zelda-oot-mod.rupees_wallet.max_reached").formatted(Formatting.RED, Formatting.BOLD, Formatting.ITALIC),
+                        Text.translatable("itemTooltip.zelda-oot-mod.rupee_wallet.max_reached").formatted(Formatting.RED, Formatting.BOLD, Formatting.ITALIC),
                         true
                     );
                 }
             }
 
-            wallet.set(ZeldaComponents.RUBIES_POSSESSED, rupees);
+            wallet.set(ZeldaComponents.RUPEES_POSSESSED, rupees);
             return ActionResult.SUCCESS;
         } else {
             // There's not wallet in this inventory

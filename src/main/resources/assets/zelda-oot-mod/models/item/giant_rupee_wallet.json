@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "zelda-oot-mod:item/rupees_wallet"
+    "layer0": "zelda-oot-mod:item/giant_rupee_wallet"
   }
 }

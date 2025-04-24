@@ -18,6 +18,7 @@ import net.minecraft.registry.tag.BlockTags;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import onyx.components.ZeldaComponents;
 import onyx.items.materials.*;
+import onyx.items.ocarina.*;
 import onyx.items.rupees.*;
 
 public class ZeldaItems {
@@ -41,7 +42,9 @@ public class ZeldaItems {
 	// Items to register ----------------------------------------------------------------------------------------------------------------------------
 
 	// Rupee-relative objects
-    public static final Item RUPEES_WALLET = register("rupees_wallet", RupeesWallet::new, new Item.Settings().component(ZeldaComponents.RUBIES_POSSESSED, 0));
+    public static final Item RUPEE_WALLET = register("rupee_wallet", RupeeWallet::new, new Item.Settings().component(ZeldaComponents.RUPEES_POSSESSED, 0));
+    public static final Item ADULT_RUPEE_WALLET = register("adult_rupee_wallet", AdultRupeeWallet::new, new Item.Settings().component(ZeldaComponents.RUPEES_POSSESSED, 0));
+    public static final Item GIANT_RUPEE_WALLET = register("giant_rupee_wallet", GiantRupeeWallet::new, new Item.Settings().component(ZeldaComponents.RUPEES_POSSESSED, 0));
     public static final Item GREEN_RUPEE = register("green_rupee", GreenRupee::new, new Item.Settings());
     public static final Item BLUE_RUPEE = register("blue_rupee", BlueRupee::new, new Item.Settings());
     public static final Item RED_RUPEE = register("red_rupee", RedRupee::new, new Item.Settings());
@@ -87,7 +90,9 @@ public class ZeldaItems {
     public static void initialize(RegistryKey<ItemGroup> group_key){
         ItemGroupEvents.modifyEntriesEvent(group_key).register((itemGroup) -> {
 			// Rupee-relative objects
-			itemGroup.add(ZeldaItems.RUPEES_WALLET);
+			itemGroup.add(ZeldaItems.RUPEE_WALLET);
+			itemGroup.add(ZeldaItems.ADULT_RUPEE_WALLET);
+			itemGroup.add(ZeldaItems.GIANT_RUPEE_WALLET);
 			itemGroup.add(ZeldaItems.GREEN_RUPEE);
 			itemGroup.add(ZeldaItems.BLUE_RUPEE);
 			itemGroup.add(ZeldaItems.RED_RUPEE);
