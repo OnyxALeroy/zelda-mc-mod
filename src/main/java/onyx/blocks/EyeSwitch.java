@@ -113,34 +113,23 @@ public class EyeSwitch extends BlockWithEntity {
 
 	@Override
 	public void onProjectileHit(World world, BlockState state, BlockHitResult hit, ProjectileEntity projectile) {
-		if (projectile instanceof DekuSeedEntity) {
-			BlockPos pos = hit.getBlockPos();
-			if (!world.isClient()) {
-
-				boolean current = state.get(ACTIVATED);
-				world.setBlockState(pos, state.with(ACTIVATED, !current), Block.NOTIFY_ALL);
+		if (!(projectile instanceof DekuSeedEntity) || world.isClient()) return;
 	
-				// Play sound effect
-				world.playSound(null, pos, SoundEvents.BLOCK_ANVIL_HIT, SoundCategory.BLOCKS, 0.6F, current ? 0.5F : 0.6F);
+		BlockPos pos = hit.getBlockPos();
+		boolean current = state.get(ACTIVATED);
 	
-				// Update redstone
-				world.updateNeighborsAlways(pos, this);
-			}
-		}
+		// Flip activation state
+		BlockState newState = state.with(ACTIVATED, !current);
+		world.setBlockState(pos, newState, Block.NOTIFY_ALL);
+	
+		// Play sound
+		world.playSound(null, pos, SoundEvents.BLOCK_ANVIL_HIT, SoundCategory.BLOCKS, 0.6F, current ? 0.5F : 0.6F);
+	
+		// Notify Redstone output change
+		world.updateNeighborsAlways(pos, this);
 	}
 
 	// Redstone ------------------------------------------------------------------------------------------------------------
-
-	@Override
-	public void neighborUpdate(BlockState state, World world, BlockPos pos, Block sourceBlock, @Nullable WireOrientation wireOrientation, boolean notify) {
-		// Power near-by Redstone components
-		if (!world.isClient) {
-			boolean powered = world.isReceivingRedstonePower(pos);
-			if (powered != state.get(ACTIVATED)) {
-				world.setBlockState(pos, state.with(ACTIVATED, powered), Block.NOTIFY_ALL);
-			}
-		}
-	}
 
 	@Override
 	public boolean emitsRedstonePower(BlockState state) {
@@ -155,5 +144,10 @@ public class EyeSwitch extends BlockWithEntity {
 	@Override
 	public int getStrongRedstonePower(BlockState state, BlockView world, BlockPos pos, Direction direction) {
 		return getWeakRedstonePower(state, world, pos, direction);
+	}
+
+	@Override
+	public boolean hasComparatorOutput(BlockState state) {
+		return false;
 	}
 }
