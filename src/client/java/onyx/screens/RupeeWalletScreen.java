@@ -28,7 +28,7 @@ import onyx.server.GiveRupeeC2SPayload;
 public class RupeeWalletScreen extends Screen {
     public Screen parent;
     private ItemStack walletStack;
-    private static final Identifier BACKGROUND_TEXTURE = Identifier.of("zelda-oot-mod", "textures/gui/demo_background.png");
+    private static final Identifier BACKGROUND_TEXTURE = Identifier.of("zelda-oot-mod", "textures/gui/wallet_insides.png");
     private static final int BG_WIDTH = 176;
     private static final int BG_HEIGHT = 166;
     private static final Function<Identifier, RenderLayer> GUI_LAYER = (id) -> RenderLayer.getGui();
@@ -69,7 +69,7 @@ public class RupeeWalletScreen extends Screen {
         int centerY = this.height / 2;
 
         // Back Button
-        this.addDrawableChild(ButtonWidget.builder(Text.of("Back"), (btn) -> {
+        this.addDrawableChild(ButtonWidget.builder(Text.translatable("gui.zelda-oot-mod.back"), (btn) -> {
             this.close();
         }).dimensions(centerX - 60, centerY + 10, 120, 20).build());
 
@@ -139,7 +139,7 @@ public class RupeeWalletScreen extends Screen {
         int currentRupees = walletStack.getOrDefault(ZeldaComponents.RUBIES_POSSESSED, 0);
 
         // Draw "Available Rupees: X" text
-        Text availableText = Text.literal("Available Rupees: " + currentRupees).formatted(Formatting.GREEN);
+        Text availableText = Text.translatable("itemTooltip.zelda-oot-mod.rupees_wallet.available_rupees", currentRupees).formatted(Formatting.GREEN);
         context.drawText(
             this.textRenderer,
             availableText,
@@ -154,7 +154,7 @@ public class RupeeWalletScreen extends Screen {
         int centerX = this.width / 2;
         
         // Title for the added rupees section
-        Text titleText = Text.literal("Rupees Added This Session:").formatted(Formatting.GOLD);
+        Text titleText = Text.translatable("itemTooltip.zelda-oot-mod.rupees_wallet.rupees_added").formatted(Formatting.GOLD);
         context.drawText(
             this.textRenderer,
             titleText,
@@ -185,7 +185,7 @@ public class RupeeWalletScreen extends Screen {
                 int rupeeValue = rupee.getValue();
                 totalValue += count * rupeeValue;
 
-                Text countText = Text.literal(rupeeTypeName + ": " + count + " (Value: " + (count * rupeeValue) + ")");
+                Text countText = Text.literal(rupeeTypeName + ": " + count);
                 context.drawText(
                     this.textRenderer,
                     countText,
@@ -201,7 +201,7 @@ public class RupeeWalletScreen extends Screen {
         
         // Draw total value 
         if (totalValue > 0) {
-            Text totalText = Text.literal("Total Value: " + totalValue).formatted(Formatting.YELLOW);
+            Text totalText = Text.literal("Total: " + totalValue).formatted(Formatting.YELLOW);
             context.drawText(
                 this.textRenderer,
                 totalText,
@@ -235,7 +235,7 @@ public class RupeeWalletScreen extends Screen {
                         return true;
                     } else {
                         this.client.getToastManager().add(
-                            SystemToast.create(this.client, SystemToast.Type.NARRATOR_TOGGLE, Text.of("Not enough rupees!"), Text.translatable("itemTooltip.zelda-oot-mod.rupees_wallet.no_rupee_left"))
+                            SystemToast.create(this.client, SystemToast.Type.NARRATOR_TOGGLE, Text.translatable("itemTooltip.zelda-oot-mod.rupees_wallet.no_rupee_left.title"), Text.translatable("itemTooltip.zelda-oot-mod.rupees_wallet.no_rupee_left.text"))
                         );
                         return false;
                     }

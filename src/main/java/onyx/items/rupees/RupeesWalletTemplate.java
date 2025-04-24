@@ -63,7 +63,7 @@ public abstract class RupeesWalletTemplate extends Item {
                         } else {
                             if (!hasMaxCapacityReached){
                                 user.sendMessage(
-                                    Text.translatable("itemTooltip.zelda-oot-mod.rupees_wallet.maxReached").formatted(Formatting.RED, Formatting.BOLD, Formatting.ITALIC),
+                                    Text.translatable("itemTooltip.zelda-oot-mod.rupees_wallet.max_reached").formatted(Formatting.RED, Formatting.BOLD, Formatting.ITALIC),
                                     true
                                 );
                                 hasMaxCapacityReached = true;

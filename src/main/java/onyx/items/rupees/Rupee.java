@@ -42,19 +42,39 @@ public abstract class Rupee extends Item {
         }
 
         if (wallet != null){
-            int rubies = wallet.getOrDefault(ZeldaComponents.RUBIES_POSSESSED, 0);
+            int rupees = wallet.getOrDefault(ZeldaComponents.RUBIES_POSSESSED, 0);
+            RupeesWalletTemplate walletTemplate = (RupeesWalletTemplate) wallet.getItem();
+            int maxCapacity = walletTemplate.getCapacity();
 
             if (user.isSneaking()){
                 // All stack
-                rubies = rubies + this.getValue() * rupee_stack.getCount();
-                rupee_stack.decrement(rupee_stack.getCount());
+                int rupeesAdded = 0;
+                while (rupees + this.getValue() <= maxCapacity && rupeesAdded <= rupee_stack.getCount()){
+                    rupees = rupees + this.getValue();
+                    rupeesAdded += 1;
+                }
+                if (rupeesAdded != rupee_stack.getCount()){
+                    user.sendMessage(
+                        Text.translatable("itemTooltip.zelda-oot-mod.rupees_wallet.max_reached").formatted(Formatting.RED, Formatting.BOLD, Formatting.ITALIC),
+                        true
+                    );
+                }
+                rupee_stack.decrement(rupeesAdded);
+
             } else {
                 // One at a time
-                rubies = rubies + this.getValue();
-                rupee_stack.decrement(1);
+                if (rupees + this.getValue() <= maxCapacity){
+                    rupees = rupees + this.getValue();
+                    rupee_stack.decrement(1);
+                } else {
+                    user.sendMessage(
+                        Text.translatable("itemTooltip.zelda-oot-mod.rupees_wallet.max_reached").formatted(Formatting.RED, Formatting.BOLD, Formatting.ITALIC),
+                        true
+                    );
+                }
             }
 
-            wallet.set(ZeldaComponents.RUBIES_POSSESSED, rubies);
+            wallet.set(ZeldaComponents.RUBIES_POSSESSED, rupees);
             return ActionResult.SUCCESS;
         } else {
             // There's not wallet in this inventory
