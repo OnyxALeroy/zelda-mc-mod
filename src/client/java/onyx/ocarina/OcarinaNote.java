@@ -1,17 +1,19 @@
 package onyx.ocarina;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
 import net.minecraft.client.option.KeyBinding;
 import net.minecraft.client.util.InputUtil;
+import onyx.sounds.OcarinaMelody;
 
-import org.jetbrains.annotations.Debug;
 import org.lwjgl.glfw.GLFW;
 
 public class OcarinaNote {
     public static final Map<String, OcarinaNote> allNotes = new HashMap<>();
+    public static final Map<String, OcarinaMelody> allMelodies = new HashMap<>();
 
     private String note;
     private KeyBinding keyBinding;
@@ -52,5 +54,14 @@ public class OcarinaNote {
         allNotes.put("A", new OcarinaNote("A", GLFW.GLFW_KEY_D));
         allNotes.put("L", new OcarinaNote("L", GLFW.GLFW_KEY_U));
         allNotes.put("R", new OcarinaNote("R", GLFW.GLFW_KEY_O));
+
+        // Initialize melodies
+        allMelodies.put("Song of Time", new OcarinaMelody(
+            "Song of Time",
+            "A song that can manipulate time.",
+            "textures/ocarina/song_of_time.png",
+            "sounds/ocarina/song_of_time.ogg",
+            List.of("Y", "L", "R", "Y", "L", "R")
+        ));
     }
 }
