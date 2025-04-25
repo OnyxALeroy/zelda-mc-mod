@@ -1,0 +1,11 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "onyx.mixens",
+  "compatibilityLevel": "JAVA_17",
+  "mixins": ["ServerPlayerEntityMixin"],
+  "client": [],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

@@ -5,6 +5,7 @@ import net.fabricmc.api.Environment;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
 import onyx.entities.ZeldaEntities;
+import onyx.ocarina.OcarinaNote;
 import onyx.renderer.DekuSeedEntityRenderer;
 
 
@@ -14,6 +15,9 @@ public class ZeldaOOTClient implements ClientModInitializer {
     public void onInitializeClient() {
         EntityRendererRegistry.register(ZeldaEntities.DEKU_SEED_ENTITY, (context) -> new DekuSeedEntityRenderer(context));
 
+        // Register key inputs for Ocarina
+        OcarinaNote.initialize();
+       
         // Initialize all payloads
         PayloadInitializer.InitializePayloads();
     }

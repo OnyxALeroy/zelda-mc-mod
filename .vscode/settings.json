@@ -8,10 +8,13 @@
     "deepslate",
     "deku",
     "DEKU",
+    "GLFW",
     "hookable",
     "HOOKABLE",
     "Hookshot",
+    "KEYSYM",
     "kokiri",
-    "minecraft"
+    "minecraft",
+    "mixens"
   ]
 }

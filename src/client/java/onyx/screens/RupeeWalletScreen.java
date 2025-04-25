@@ -1,10 +1,9 @@
 package onyx.screens;
 
 import java.util.List;
+
 import java.util.ArrayList;
 import java.util.HashMap;
-
-import com.google.common.base.Function;
 
 import net.fabricmc.api.Environment;
 import net.fabricmc.api.EnvType;
@@ -28,10 +27,9 @@ import onyx.server.GiveRupeeC2SPayload;
 public class RupeeWalletScreen extends Screen {
     public Screen parent;
     private ItemStack walletStack;
-    private static final Identifier BACKGROUND_TEXTURE = Identifier.of("zelda-oot-mod", "textures/gui/wallet_insides.png");
+    private static final Identifier BACKGROUND_TEXTURE = Identifier.of("zelda-oot-mod", "textures/gui/rupee_wallet.png");
     private static final int BG_WIDTH = 176;
-    private static final int BG_HEIGHT = 166;
-    private static final Function<Identifier, RenderLayer> GUI_LAYER = (id) -> RenderLayer.getGui();
+    private static final int BG_HEIGHT = 222;
 
     private final ItemStack[] rupees = new ItemStack[] {
         new ItemStack(ZeldaItems.GREEN_RUPEE, 1),
@@ -71,14 +69,15 @@ public class RupeeWalletScreen extends Screen {
         // Back Button
         this.addDrawableChild(ButtonWidget.builder(Text.translatable("gui.zelda-oot-mod.back"), (btn) -> {
             this.close();
-        }).dimensions(centerX - 60, centerY + 10, 120, 20).build());
+        }).dimensions(centerX - 60, centerY - 50, 120, 20).build());
 
         // Filling the rupees slots
         rupeeSlots.clear();
-        int startX = (this.width - (rupees.length * 20)) / 2;
-        int y = this.height / 2 - 50;
+        int slotSize = 18;
+        int startX = (this.width - (rupees.length * slotSize)) / 2 + 1;
+        int y = this.height / 2 - 74;
         for (int i = 0; i < rupees.length; i++) {
-            int x = startX + i * 20;
+            int x = startX + i * slotSize;
             rupeeSlots.add(new SlotInfo(x, y, rupees[i]));
         }
 
@@ -99,7 +98,9 @@ public class RupeeWalletScreen extends Screen {
     // Rendering
     @Override
     public void render(DrawContext context, int mouseX, int mouseY, float delta) {
+        // Draw the background
         this.renderBackgroundTexture(context);
+
         super.render(context, mouseX, mouseY, delta);
 
         // Draw rupee items
@@ -124,15 +125,8 @@ public class RupeeWalletScreen extends Screen {
     private void renderBackgroundTexture(DrawContext context) {
         int centerX = (this.width - BG_WIDTH) / 2;
         int centerY = (this.height - BG_HEIGHT) / 2;
-
-        context.drawTexture(
-            GUI_LAYER,
-            BACKGROUND_TEXTURE,
-            centerX, centerY,
-            0.0F, 0.0F,
-            this.width, this.height,
-            this.width, this.height
-        );
+        
+        context.drawTexture(RenderLayer::getGuiTextured, BACKGROUND_TEXTURE, centerX, centerY, 0, 0, BG_WIDTH, BG_HEIGHT, BG_WIDTH, BG_HEIGHT);
     }
     private void renderAvailableAmount(DrawContext context){
         int centerX = this.width / 2;
@@ -144,13 +138,13 @@ public class RupeeWalletScreen extends Screen {
             this.textRenderer,
             availableText,
             centerX - this.textRenderer.getWidth(availableText) / 2,
-            this.height / 2 - 80,
+            this.height / 2 - 95,
             0xFFFFFF,
             true
         );
     }
     private void renderSessionRupeeInfo(DrawContext context){
-        int startY = this.height / 2 + 50;
+        int startY = this.height / 2;
         int centerX = this.width / 2;
         
         // Title for the added rupees section
@@ -164,11 +158,8 @@ public class RupeeWalletScreen extends Screen {
             true
         );
         
-        // Calculate total value added
-        int totalValue = 0;
-        
         // Draw each rupee type and count
-        int rowY = startY;
+        int rowY = startY + 10;
         int leftX = centerX - 70;
         
         for (ItemStack rupeeStack : rupees) {
@@ -182,9 +173,6 @@ public class RupeeWalletScreen extends Screen {
                 
                 // Draw the count
                 String rupeeTypeName = rupeeStack.getName().getString();
-                int rupeeValue = rupee.getValue();
-                totalValue += count * rupeeValue;
-
                 Text countText = Text.literal(rupeeTypeName + ": " + count);
                 context.drawText(
                     this.textRenderer,
@@ -197,19 +185,6 @@ public class RupeeWalletScreen extends Screen {
                 
                 rowY += 16;
             }
-        }
-        
-        // Draw total value 
-        if (totalValue > 0) {
-            Text totalText = Text.literal("Total: " + totalValue).formatted(Formatting.YELLOW);
-            context.drawText(
-                this.textRenderer,
-                totalText,
-                centerX - this.textRenderer.getWidth(totalText) / 2,
-                rowY + 10,
-                0xFFFFFF,
-                true
-            );
         }
     }
 

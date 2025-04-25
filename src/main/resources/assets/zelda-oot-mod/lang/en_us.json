@@ -52,5 +52,15 @@
   "item.zelda-oot-mod.hook_target": "Hook Target",
   "block.zelda-oot-mod.deku_seed_block": "Deku Seed Block",
   "block.zelda-oot-mod.eye_switch": "Eye Switch",
-  "item.zelda-oot-mod.eye_switch": "Eye Switch"
+  "item.zelda-oot-mod.eye_switch": "Eye Switch",
+
+  "_comment_4": "Below are translations for controls ----------------------------------------------------------------------------",
+  "category.onyx.ocarina": "Zelda OOT - Ocarina",
+  "key.onyx.ocarina.x": "X Button",
+  "key.onyx.ocarina.b": "B Button",
+  "key.onyx.ocarina.y": "Y Button",
+  "key.onyx.ocarina.a": "A Button",
+  "key.onyx.ocarina.l": "L Button",
+  "key.onyx.ocarina.r": "R Button",
+  "Placeholder for EOF": "Placeholder for EOF"
 }
