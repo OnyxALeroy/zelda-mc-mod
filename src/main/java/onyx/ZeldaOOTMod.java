@@ -20,6 +20,7 @@ import onyx.server.GiveRupeeC2SPayload;
 import onyx.server.OpenRupeeWalletS2CPayload;
 import onyx.server.UseOcarinaS2CPayload;
 import onyx.songs.Song;
+import onyx.sounds.ZeldaSounds;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -54,6 +55,7 @@ public class ZeldaOOTMod implements ModInitializer {
 		ZeldaBlocks.initialize(ZELDA_BLOCK_GROUP_KEY);
 		ZeldaItems.initialize(ZELDA_ITEM_GROUP_KEY);
 		ZeldaEntities.initialize();
+		ZeldaSounds.initialize();
 		Managers.initialize();
 		this.initializeAllPayloads();
 

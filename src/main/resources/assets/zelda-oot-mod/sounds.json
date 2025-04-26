@@ -1,0 +1,22 @@
+{
+  "ocarina_a": {
+    "subtitle": "sound.zelda-oot-mod.ocarina_a",
+    "sounds": ["zelda-oot-mod:ocarina_a"]
+  },
+  "ocarina_x": {
+    "subtitle": "sound.zelda-oot-mod.ocarina_x",
+    "sounds": ["zelda-oot-mod:ocarina_x"]
+  },
+  "ocarina_y": {
+    "subtitle": "sound.zelda-oot-mod.ocarina_y",
+    "sounds": ["zelda-oot-mod:ocarina_y"]
+  },
+  "ocarina_l": {
+    "subtitle": "sound.zelda-oot-mod.ocarina_l",
+    "sounds": ["zelda-oot-mod:ocarina_l"]
+  },
+  "ocarina_r": {
+    "subtitle": "sound.zelda-oot-mod.ocarina_r",
+    "sounds": ["zelda-oot-mod:ocarina_r"]
+  }
+}

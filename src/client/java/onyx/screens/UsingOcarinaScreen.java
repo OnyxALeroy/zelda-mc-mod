@@ -25,9 +25,7 @@ import onyx.sounds.OcarinaMelody;
 @Environment(EnvType.CLIENT)
 public class UsingOcarinaScreen extends Screen {
     public Screen parent;
-    private static Identifier BACKGROUND_TEXTURE = Identifier.of("zelda-oot-mod", "textures/gui/ocarina.png");
-    private static final int BG_WIDTH = 176;
-    private static final int BG_HEIGHT = 166;
+    private static Identifier BACKGROUND_TEXTURE = Identifier.of("zelda-oot-mod", "textures/gui/using_ocarina.png");
 
     private Queue<String> playedNotes = new LinkedList<>();
 
@@ -40,11 +38,31 @@ public class UsingOcarinaScreen extends Screen {
 	protected void init() {
         int centerX = this.width / 2;
         int centerY = this.height / 2;
+        int ocarinaButtonSize = 30;
+        int ocarinaBigButtonWidth = 40;
+        int ocarinaBigButtonHeight = 20;
 
         // Back Button
         this.addDrawableChild(ButtonWidget.builder(Text.translatable("gui.zelda-oot-mod.back"), (btn) -> {
             this.close();
         }).dimensions(centerX - 60, centerY + 10, 120, 20).build());
+
+        // Ocarina Buttons
+        this.addDrawableChild(ButtonWidget.builder(Text.of("A"), (btn) -> {
+            this.playNote(OcarinaNote.allNotes.get("A"));
+        }).dimensions(centerX + 20, centerY - 46, ocarinaButtonSize, ocarinaButtonSize).build());
+        this.addDrawableChild(ButtonWidget.builder(Text.of("X"), (btn) -> {
+            this.playNote(OcarinaNote.allNotes.get("X"));
+        }).dimensions(centerX - 50, centerY - 46, ocarinaButtonSize, ocarinaButtonSize).build());
+        this.addDrawableChild(ButtonWidget.builder(Text.of("Y"), (btn) -> {
+            this.playNote(OcarinaNote.allNotes.get("Y"));
+        }).dimensions(centerX - 15, centerY - 80, ocarinaButtonSize, ocarinaButtonSize).build());
+        this.addDrawableChild(ButtonWidget.builder(Text.of("L"), (btn) -> {
+            this.playNote(OcarinaNote.allNotes.get("L"));
+        }).dimensions(centerX - 75, centerY - 99, ocarinaBigButtonWidth, ocarinaBigButtonHeight).build());
+        this.addDrawableChild(ButtonWidget.builder(Text.of("R"), (btn) -> {
+            this.playNote(OcarinaNote.allNotes.get("R"));
+        }).dimensions(centerX + 37, centerY - 99, ocarinaBigButtonWidth, ocarinaBigButtonHeight).build());
 	}
 
     @Override
@@ -63,16 +81,20 @@ public class UsingOcarinaScreen extends Screen {
     }
 
     private void renderBackgroundTexture(DrawContext context) {
-        int centerX = (this.width - BG_WIDTH) / 2;
-        int centerY = (this.height - BG_HEIGHT) / 2;
+        int ocarinaWidth = 225;
+        int ocarinaHeight = 100;
+        int yOffset = 50;
+
+        int topLeftX = (this.width - ocarinaWidth) / 2;
+        int topLeftY = (this.height - ocarinaHeight) / 2 - yOffset;
 
         context.drawTexture(
             RenderLayer::getGuiTextured,
             BACKGROUND_TEXTURE,
-            centerX, centerY,
+            topLeftX, topLeftY,
             0.0F, 0.0F,
-            this.width, this.height,
-            this.width, this.height
+            ocarinaWidth, ocarinaHeight,
+            ocarinaWidth, ocarinaHeight
         );
     }
 
@@ -102,6 +124,7 @@ public class UsingOcarinaScreen extends Screen {
     // Playing notes
     public void playNote(OcarinaNote note) {
         if (this.client != null && this.client.player != null) {
+            note.play(this.client.player);
             // Display a toast notification
             SystemToast.add(
                 this.client.getToastManager(),
@@ -138,6 +161,7 @@ public class UsingOcarinaScreen extends Screen {
                     Text.literal("Melody Played!"),
                     Text.literal("You played: " + entry.getKey())
                 );
+                playedNotes = new LinkedList<>();
                 return;
             }
         }
