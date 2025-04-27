@@ -1,8 +1,11 @@
-package onyx.mixens;
+package onyx.mixins;
 
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.server.network.ServerPlayerEntity;
 import onyx.components.PlayerNoteTracker;
+import onyx.items.TornadoRod;
 
 import java.util.List;
 
@@ -34,6 +37,18 @@ public class ServerPlayerEntityMixin {
             List<String> oldNotes = PlayerNoteTracker.getInstance().getPlayedNotes(oldPlayer);
             for (String note : oldNotes) {
                 PlayerNoteTracker.getInstance().addNote(newPlayer, note);
+            }
+        }
+    }
+
+    @Inject(method = "onLanding", at = @At("HEAD"), cancellable = true)
+    private void preventFallDamage(CallbackInfo ci) {
+        LivingEntity entity = (LivingEntity) (Object) this;
+
+        if (entity instanceof PlayerEntity player) {
+            if (TornadoRod.shouldPreventFallDamage(player)) {
+                player.fallDistance = 0.0f;
+                ci.cancel(); // Cancel default landing behavior that causes fall damage
             }
         }
     }

@@ -61,6 +61,7 @@ public class ZeldaItems {
 			settings -> new UnbreakableSword(KOKIRI_SWORD_TOOL, 1f, 1f, settings),
 			new Item.Settings()
 	);
+    public static final Item TORNADO_ROD = register("tornado_rod", TornadoRod::new, new Item.Settings());
 
 	// Armors
 	public static final Item GREEN_TUNIC_HELMET = register("green_tunic_helmet",
@@ -104,6 +105,7 @@ public class ZeldaItems {
 			itemGroup.add(ZeldaItems.SLINGSHOT);
 			itemGroup.add(ZeldaItems.DEKU_SEED);
 			itemGroup.add(ZeldaItems.HOOKSHOT);
+			itemGroup.add(ZeldaItems.TORNADO_ROD);
 			itemGroup.add(ZeldaItems.KOKIRI_SWORD);
 			itemGroup.add(ZeldaItems.GREEN_TUNIC_HELMET);
 			itemGroup.add(ZeldaItems.GREEN_TUNIC_CHESTPLATE);

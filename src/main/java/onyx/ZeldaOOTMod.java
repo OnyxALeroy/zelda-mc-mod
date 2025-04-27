@@ -1,6 +1,7 @@
 package onyx;
 
 import net.fabricmc.api.ModInitializer;
+import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
 import net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
@@ -14,6 +15,7 @@ import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import onyx.blocks.ZeldaBlocks;
 import onyx.entities.ZeldaEntities;
+import onyx.items.TornadoRod;
 import onyx.items.ZeldaItems;
 import onyx.items.behaviourmanagers.Managers;
 import onyx.server.GiveRupeeC2SPayload;
@@ -58,6 +60,7 @@ public class ZeldaOOTMod implements ModInitializer {
 		ZeldaSounds.initialize();
 		Managers.initialize();
 		this.initializeAllPayloads();
+		this.initializeAllTickEvents();
 
 		Song.initialize();
 	}
@@ -82,5 +85,14 @@ public class ZeldaOOTMod implements ModInitializer {
 					}
 			});
 		});
+	}
+
+	private void initializeAllTickEvents(){
+        // Register server tick event for tornado effect
+        ServerTickEvents.END_SERVER_TICK.register(server -> {
+            for (var player : server.getPlayerManager().getPlayerList()) {
+                TornadoRod.tickTornado(player);
+            }
+        });
 	}
 }
