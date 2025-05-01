@@ -1,15 +1,18 @@
 package onyx;
 
 import net.fabricmc.api.ModInitializer;
+import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
 import net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
+import net.minecraft.command.argument.EntityArgumentType;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.registry.RegistryKey;
+import net.minecraft.server.command.CommandManager;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
@@ -26,6 +29,8 @@ import onyx.sounds.ZeldaSounds;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import com.mojang.brigadier.arguments.StringArgumentType;
 
 public class ZeldaOOTMod implements ModInitializer {
 	public static final String MOD_ID = "zelda-oot-mod";
@@ -59,14 +64,16 @@ public class ZeldaOOTMod implements ModInitializer {
 		ZeldaEntities.initialize();
 		ZeldaSounds.initialize();
 		Managers.initialize();
+
 		this.initializeAllPayloads();
 		this.initializeAllTickEvents();
+		this.initializeAllCommands();
 
 		Song.initialize();
 	}
 
 	// --------------------------------------------------------------------------------------------
-	
+
 	private void initializeAllPayloads(){
 		PayloadTypeRegistry.playC2S().register(GiveRupeeC2SPayload.ID, GiveRupeeC2SPayload.CODEC);
 		PayloadTypeRegistry.playS2C().register(OpenRupeeWalletS2CPayload.ID, OpenRupeeWalletS2CPayload.CODEC);
@@ -94,5 +101,32 @@ public class ZeldaOOTMod implements ModInitializer {
                 TornadoRod.tickTornado(player);
             }
         });
+	}
+
+	private void initializeAllCommands(){
+		CommandRegistrationCallback.EVENT.register((dispatcher, registryAccess, environment) -> {
+			dispatcher.register(CommandManager.literal("learn_melody")
+				.then(CommandManager.argument("player", EntityArgumentType.player())
+					.then(CommandManager.argument("melody", StringArgumentType.string())
+						.suggests((context, builder) -> {
+							for (Song song : Song.songs) {
+								builder.suggest(song.getId());
+							}
+							return builder.buildFuture();
+						})
+						.executes(context -> ZeldaCommands.executeLearnMelodyCommand(context)))));
+		});
+		CommandRegistrationCallback.EVENT.register((dispatcher, registryAccess, environment) -> {
+			dispatcher.register(CommandManager.literal("forget_melody")
+				.then(CommandManager.argument("player", EntityArgumentType.player())
+					.then(CommandManager.argument("melody", StringArgumentType.string())
+						.suggests((context, builder) -> {
+							for (Song song : Song.songs) {
+								builder.suggest(song.getId());
+							}
+							return builder.buildFuture();
+						})
+						.executes(context -> ZeldaCommands.executeForgetMelodyCommand(context)))));
+		});
 	}
 }

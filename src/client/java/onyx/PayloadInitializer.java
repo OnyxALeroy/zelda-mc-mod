@@ -41,7 +41,7 @@ public class PayloadInitializer {
 
             Screen currentScreen = MinecraftClient.getInstance().currentScreen;
             MinecraftClient.getInstance().execute(() -> {
-                MinecraftClient.getInstance().setScreen(new UsingOcarinaScreen(currentScreen));
+                MinecraftClient.getInstance().setScreen(new UsingOcarinaScreen(currentScreen, MinecraftClient.getInstance().player.getUuid()));
             });
         });
     }
