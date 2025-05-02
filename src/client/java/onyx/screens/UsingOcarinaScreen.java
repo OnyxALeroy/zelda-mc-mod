@@ -6,7 +6,6 @@ import java.util.List;
 import java.util.UUID;
 
 import net.fabricmc.api.EnvType;
-import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.ButtonWidget;
 import net.minecraft.text.Text;
@@ -23,43 +22,48 @@ public class UsingOcarinaScreen extends Screen {
         this.playerUuid = playerUuid;
     }
 
-	@Override
-	protected void init() {
+    @Override
+    protected void init() {
         int centerX = this.width / 2;
         int centerY = this.height / 2;
+        int buttonWidth = 160;
+        int buttonHeight = 20;
+        int startX = centerX - (buttonWidth / 2);
 
-        // Back Button
-        this.addDrawableChild(ButtonWidget.builder(Text.translatable("gui.zelda-oot-mod.back"), (btn) -> {
-            this.close();
-        }).dimensions(centerX - 60, centerY + 10, 120, 20).build());
+        int buttonPerRow = 2;
+        int melodyButtonWidth = buttonWidth / 2;
 
-        // All "Song" buttons
         List<Song> songs = Song.getAllAvailableSongs(playerUuid);
         int songCount = songs.size();
 
+        // Calculate how many rows of buttons are needed
+        int rowCount = (int) Math.ceil(songCount / (double) buttonPerRow);
+        int totalButtonBlockHeight = rowCount * buttonHeight;
+        int baseButtonY = centerY - totalButtonBlockHeight - 10;
+
         for (int i = 0; i < songCount; i++) {
             Song song = songs.get(i);
-            int buttonY = centerY - 10 + (i * 25);
 
-            this.addDrawableChild(ButtonWidget.builder(Text.translatable("gui.zelda-oot-mod.song." + song.getId()), (btn) -> {
-                song.play(playerUuid);
-            }).dimensions(centerX - 60, buttonY, 120, 20).build());
+            int buttonX = startX + (i % buttonPerRow) * melodyButtonWidth;
+            int buttonY = baseButtonY + (i / buttonPerRow) * buttonHeight;
+
+            this.addDrawableChild(ButtonWidget.builder(
+                Text.translatable("gui.zelda-oot-mod.song." + song.getId()),
+                (btn) -> song.play(this.playerUuid)
+            ).dimensions(buttonX, buttonY, melodyButtonWidth, buttonHeight).build());
         }
-	}
+
+        // Back Button — placed below the last row of song buttons
+        this.addDrawableChild(ButtonWidget.builder(
+            Text.translatable("gui.zelda-oot-mod.back"),
+            (btn) -> this.close()
+        ).dimensions(startX, centerY + 10, buttonWidth, buttonHeight).build());
+    }
 
     @Override
     public void close() {
         this.client.setScreen(this.parent);
     }
-
-    // ---------------------------------------------------------------------------------------------------------------------
-
-    @Override
-    public void render(DrawContext context, int mouseX, int mouseY, float delta) {
-        this.renderBackgroundTexture(context);
-        super.render(context, mouseX, mouseY, delta);
-    }
-    private void renderBackgroundTexture(DrawContext context) {}
 
     // ---------------------------------------------------------------------------------------------------------------------
 

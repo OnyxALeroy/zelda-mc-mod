@@ -15,7 +15,6 @@ public class Song {
     private Identifier soundPath;
     private Map<UUID, Boolean> playerPermissions = new HashMap<>();
 
-
     public Song(String id) {
         this.id = id;
         this.soundPath = getIdentifier();
@@ -38,10 +37,14 @@ public class Song {
     // Play the song if the player has permission
     public boolean play(UUID playerUuid) {
         if (canPlayerPlay(playerUuid)) {
-            // TODO: Implement playing logic here
+            this.playSong(playerUuid);
             return true;
         }
         return false;
+    }
+
+    private void playSong(UUID playerUuid) {
+        
     }
 
     // ----------------------------------------------------------------------------------------------------------------------------------------------
@@ -49,6 +52,9 @@ public class Song {
     // Initialize all songs
     public static void initialize(){
         songs.add(new Song("song_of_time"));
+        songs.add(new Song("song_of_storms"));
+        songs.add(new Song("song_of_sun"));
+        songs.add(new Song("song_of_saria"));
     }
 
     // Helper method to find a song by ID
