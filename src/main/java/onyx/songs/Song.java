@@ -6,6 +6,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
+import net.minecraft.server.MinecraftServer;
+import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.Identifier;
 
 public class Song {
@@ -14,10 +16,12 @@ public class Song {
     private String id;
     private Identifier soundPath;
     private Map<UUID, Boolean> playerPermissions = new HashMap<>();
+    private SongAction action;
 
-    public Song(String id) {
+    public Song(String id, SongAction action) {
         this.id = id;
         this.soundPath = getIdentifier();
+        this.action = action;
     }
 
     public String getId() { return id; }
@@ -35,26 +39,28 @@ public class Song {
     }
 
     // Play the song if the player has permission
-    public boolean play(UUID playerUuid) {
+    public boolean play(MinecraftServer server, UUID playerUuid) {
         if (canPlayerPlay(playerUuid)) {
-            this.playSong(playerUuid);
+            if (action != null) {
+                action.execute(server, playerUuid);
+            }
             return true;
         }
         return false;
-    }
-
-    private void playSong(UUID playerUuid) {
-        
     }
 
     // ----------------------------------------------------------------------------------------------------------------------------------------------
 
     // Initialize all songs
     public static void initialize(){
-        songs.add(new Song("song_of_time"));
-        songs.add(new Song("song_of_storms"));
-        songs.add(new Song("song_of_sun"));
-        songs.add(new Song("song_of_saria"));
+        songs.add(new Song("song_of_time", SongActions.GIVE_COOKIE));
+        songs.add(new Song("song_of_storms", SongActions.SUMMON_LIGHTNING));
+        songs.add(new Song("song_of_sun", (server, uuid) -> {
+            ServerPlayerEntity player = server.getPlayerManager().getPlayer(uuid);
+        }));
+        songs.add(new Song("song_of_saria", (server, uuid) -> {
+            // Custom inline action
+        }));
     }
 
     // Helper method to find a song by ID

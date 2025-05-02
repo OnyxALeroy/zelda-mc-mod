@@ -1,6 +1,7 @@
 package onyx.screens;
 
 import net.fabricmc.api.Environment;
+import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 
 import java.util.List;
 import java.util.UUID;
@@ -9,6 +10,7 @@ import net.fabricmc.api.EnvType;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.ButtonWidget;
 import net.minecraft.text.Text;
+import onyx.server.PlayMelodyC2SPayload;
 import onyx.songs.Song;
 
 @Environment(EnvType.CLIENT)
@@ -49,7 +51,10 @@ public class UsingOcarinaScreen extends Screen {
 
             this.addDrawableChild(ButtonWidget.builder(
                 Text.translatable("gui.zelda-oot-mod.song." + song.getId()),
-                (btn) -> song.play(this.playerUuid)
+                (btn) -> {
+                    PlayMelodyC2SPayload payload = new PlayMelodyC2SPayload(song.getId());
+                    ClientPlayNetworking.send(payload);
+                }
             ).dimensions(buttonX, buttonY, melodyButtonWidth, buttonHeight).build());
         }
 

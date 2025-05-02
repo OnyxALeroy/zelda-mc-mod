@@ -23,6 +23,7 @@ import onyx.items.ZeldaItems;
 import onyx.items.behaviourmanagers.Managers;
 import onyx.server.GiveRupeeC2SPayload;
 import onyx.server.OpenRupeeWalletS2CPayload;
+import onyx.server.PlayMelodyC2SPayload;
 import onyx.server.UseOcarinaS2CPayload;
 import onyx.songs.Song;
 import onyx.sounds.ZeldaSounds;
@@ -78,18 +79,29 @@ public class ZeldaOOTMod implements ModInitializer {
 		PayloadTypeRegistry.playC2S().register(GiveRupeeC2SPayload.ID, GiveRupeeC2SPayload.CODEC);
 		PayloadTypeRegistry.playS2C().register(OpenRupeeWalletS2CPayload.ID, OpenRupeeWalletS2CPayload.CODEC);
 		PayloadTypeRegistry.playS2C().register(UseOcarinaS2CPayload.ID, UseOcarinaS2CPayload.CODEC);
+		PayloadTypeRegistry.playC2S().register(PlayMelodyC2SPayload.ID, PlayMelodyC2SPayload.CODEC);
 
 		ServerPlayNetworking.registerGlobalReceiver(GiveRupeeC2SPayload.ID, (payload, context) -> {
-			    ServerPlayerEntity player = context.player();
-
+			ServerPlayerEntity player = context.player();
 		    context.server().execute(() -> {
-					ItemStack stack = new ItemStack(payload.rupee().getItem(), 1);
-					boolean added = player.getInventory().insertStack(stack);
+				ItemStack stack = new ItemStack(payload.rupee().getItem(), 1);
+				boolean added = player.getInventory().insertStack(stack);
 
-					if (!added || !stack.isEmpty()){
-						// Dropping the item on the ground
-						player.dropItem(stack, false);
-					}
+				if (!added || !stack.isEmpty()){
+					// Dropping the item on the ground
+					player.dropItem(stack, false);
+				}
+			});
+		});
+
+		ServerPlayNetworking.registerGlobalReceiver(PlayMelodyC2SPayload.ID, (payload, context) -> {
+			ServerPlayerEntity player = context.player();
+			context.server().execute(() -> {
+				String melodyID = payload.melodyID();
+				Song song = Song.getSongById(melodyID);
+				if (song != null){
+					song.play(context.player().getServer(), player.getUuid());
+				}
 			});
 		});
 	}
