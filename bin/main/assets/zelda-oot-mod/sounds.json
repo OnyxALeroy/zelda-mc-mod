@@ -1,22 +1,10 @@
 {
-  "ocarina_a": {
-    "subtitle": "sound.zelda-oot-mod.ocarina_a",
-    "sounds": ["zelda-oot-mod:ocarina_a"]
+  "song_of_sun": {
+    "subtitle": "sound.zelda-oot-mod.song_of_sun",
+    "sounds": ["zelda-oot-mod:song_of_sun"]
   },
-  "ocarina_x": {
-    "subtitle": "sound.zelda-oot-mod.ocarina_x",
-    "sounds": ["zelda-oot-mod:ocarina_x"]
-  },
-  "ocarina_y": {
-    "subtitle": "sound.zelda-oot-mod.ocarina_y",
-    "sounds": ["zelda-oot-mod:ocarina_y"]
-  },
-  "ocarina_l": {
-    "subtitle": "sound.zelda-oot-mod.ocarina_l",
-    "sounds": ["zelda-oot-mod:ocarina_l"]
-  },
-  "ocarina_r": {
-    "subtitle": "sound.zelda-oot-mod.ocarina_r",
-    "sounds": ["zelda-oot-mod:ocarina_r"]
+  "song_of_storms": {
+    "subtitle": "sound.zelda-oot-mod.song_of_storms",
+    "sounds": ["zelda-oot-mod:song_of_storms"]
   }
 }

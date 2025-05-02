@@ -7,26 +7,21 @@ import java.util.Map;
 import java.util.UUID;
 
 import net.minecraft.server.MinecraftServer;
-import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.util.Identifier;
 
 public class Song {
     public static List<Song> songs = new ArrayList<>();
 
     private String id;
-    private Identifier soundPath;
     private Map<UUID, Boolean> playerPermissions = new HashMap<>();
     private SongAction action;
 
     public Song(String id, SongAction action) {
         this.id = id;
-        this.soundPath = getIdentifier();
         this.action = action;
     }
 
     public String getId() { return id; }
-    public Identifier getIdentifier() { return Identifier.of("zelda-oot-mod", "songs/" + id); }
-    public Identifier getSoundPath(){ return soundPath; }
+    public void setAction(SongAction action) { this.action = action; }
 
     // Check if a player can play this song
     public boolean canPlayerPlay(UUID playerUuid) {
@@ -53,14 +48,14 @@ public class Song {
 
     // Initialize all songs
     public static void initialize(){
-        songs.add(new Song("song_of_time", SongActions.GIVE_COOKIE));
-        songs.add(new Song("song_of_storms", SongActions.SUMMON_LIGHTNING));
-        songs.add(new Song("song_of_sun", (server, uuid) -> {
-            ServerPlayerEntity player = server.getPlayerManager().getPlayer(uuid);
-        }));
-        songs.add(new Song("song_of_saria", (server, uuid) -> {
-            // Custom inline action
-        }));
+        songs.add(new Song("song_of_sun", SongActions.SONG_OF_SUN));
+        songs.add(new Song("song_of_storms", SongActions.SONG_OF_STORMS));
+
+        // songs.add(new Song("song_of_time", SongActions.GIVE_COOKIE));
+        // songs.add(new Song("song_of_storms", SongActions.SUMMON_LIGHTNING));
+        // songs.add(new Song("song_of_saria", (server, uuid) -> {
+        //     // Custom inline action
+        // }));
     }
 
     // Helper method to find a song by ID

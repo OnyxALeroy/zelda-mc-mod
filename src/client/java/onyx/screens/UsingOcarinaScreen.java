@@ -54,6 +54,7 @@ public class UsingOcarinaScreen extends Screen {
                 (btn) -> {
                     PlayMelodyC2SPayload payload = new PlayMelodyC2SPayload(song.getId());
                     ClientPlayNetworking.send(payload);
+                    this.close();
                 }
             ).dimensions(buttonX, buttonY, melodyButtonWidth, buttonHeight).build());
         }
