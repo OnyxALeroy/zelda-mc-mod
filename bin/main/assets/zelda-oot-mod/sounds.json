@@ -6,5 +6,9 @@
   "song_of_storms": {
     "subtitle": "sound.zelda-oot-mod.song_of_storms",
     "sounds": ["zelda-oot-mod:song_of_storms"]
+  },
+  "minuet_of_forest": {
+    "subtitle": "sound.zelda-oot-mod.minuet_of_forest",
+    "sounds": ["zelda-oot-mod:minuet_of_forest"]
   }
 }

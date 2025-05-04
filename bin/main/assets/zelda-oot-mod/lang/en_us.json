@@ -4,6 +4,10 @@
   "itemGroup.zelda-oot-mod.item_group": "Zelda Items",
   "gui.zelda-oot-mod.back": "Back",
 
+  "gui.zelda-oot-mod.song.song_of_sun": "Song of Sun",
+  "gui.zelda-oot-mod.song.song_of_storms": "Song of Storms",
+  "gui.zelda-oot-mod.song.minuet_of_forest": "Minuet of Forest",
+
   "_comment_2": "Below are translations for items -------------------------------------------------------------------------------",
   "item.zelda-oot-mod.ocarina_of_time": "Ocarina of Time",
 
@@ -46,7 +50,7 @@
   "item.zelda-oot-mod.green_tunic_leggings": "Green Tunic Leggings",
   "item.zelda-oot-mod.green_tunic_boots": "Green Tunic Boots",
 
-  "_comment_3": "Below are translations for items -------------------------------------------------------------------------------",
+  "_comment_3": "Below are translations for blocs -------------------------------------------------------------------------------",
   "block.zelda-oot-mod.block_of_time": "Block of Time",
   "item.zelda-oot-mod.block_of_time": "Block of Time",
   "block.zelda-oot-mod.hook_target": "Hook Target",
@@ -54,6 +58,8 @@
   "block.zelda-oot-mod.deku_seed_block": "Deku Seed Block",
   "block.zelda-oot-mod.eye_switch": "Eye Switch",
   "item.zelda-oot-mod.eye_switch": "Eye Switch",
+  "block.zelda-oot-mod.forest_piedestal": "Forest Piedestal",
+  "item.zelda-oot-mod.forest_piedestal": "Forest Piedestal",
 
   "_comment_4": "Below are translations for sounds ------------------------------------------------------------------------------",
 

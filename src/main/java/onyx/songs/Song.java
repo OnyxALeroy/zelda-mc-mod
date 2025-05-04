@@ -7,6 +7,7 @@ import java.util.Map;
 import java.util.UUID;
 
 import net.minecraft.server.MinecraftServer;
+import net.minecraft.util.math.BlockPos;
 
 public class Song {
     public static List<Song> songs = new ArrayList<>();
@@ -50,6 +51,9 @@ public class Song {
     public static void initialize(){
         songs.add(new Song("song_of_sun", SongActions.SONG_OF_SUN));
         songs.add(new Song("song_of_storms", SongActions.SONG_OF_STORMS));
+
+        songs.add(new WarpSong("minuet_of_forest", SongActions.MINUET_OF_FOREST, 
+            new BlockPos(0, 0, 0)));
 
         // songs.add(new Song("song_of_time", SongActions.GIVE_COOKIE));
         // songs.add(new Song("song_of_storms", SongActions.SUMMON_LIGHTNING));

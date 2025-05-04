@@ -1,14 +1,18 @@
 package onyx.songs;
 
+import java.util.EnumSet;
 import java.util.Timer;
 import java.util.TimerTask;
 
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 
+import net.minecraft.network.packet.s2c.play.PositionFlag;
+import net.minecraft.particle.ParticleTypes;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
+import net.minecraft.text.Text;
 import onyx.sounds.ZeldaSounds;
 
 public class SongActions {
@@ -58,6 +62,39 @@ public class SongActions {
 
     // ----------------------------------------------------------------------------------------------------------------------------------------------
 
+    public static WarpSongAction MINUET_OF_FOREST = (server, playerUuid, warpPos, facing) -> {
+        ServerPlayerEntity player = server.getPlayerManager().getPlayer(playerUuid);
+        if (player != null) {
+            ServerWorld world = player.getServerWorld();
+            
+            // Play the song's sound
+            world.playSound(null, player.getBlockPos(), ZeldaSounds.MINUET_OF_FOREST, SoundCategory.RECORDS, 0.75f, 1.0f);
+            
+            // Show particles
+            world.spawnParticles(ParticleTypes.HAPPY_VILLAGER, 
+                player.getX(), player.getY() + 1, player.getZ(),
+                20, 0.5, 0.5, 0.5, 0.1);
+
+            // Teleport logic
+            player.teleport(
+                world,
+                warpPos.getX() + 0.5,
+                warpPos.getY() + 1.0,
+                warpPos.getZ() + 0.5,
+                EnumSet.noneOf(PositionFlag.class), facing,
+                player.getPitch(), false
+            );
+                
+            // Effects and messages
+            world.spawnParticles(ParticleTypes.PORTAL,
+                warpPos.getX() + 0.5, warpPos.getY() + 1.5, warpPos.getZ() + 0.5,
+                400, 0.5, 0.5, 0.5, 0.1);
+            player.sendMessage(Text.literal("§2You have been transported by the Minuet of Forest."), true);
+        }
+    };
+
+    // ----------------------------------------------------------------------------------------------------------------------------------------------
+
     private static void scheduleTimeAcceleration(MinecraftServer server, ServerWorld world, long startTime, long targetTime, long durationTicks) {
         final long adjustedTargetTime = targetTime <= startTime ? targetTime + 24000 : targetTime;
         final long timeDifference = adjustedTargetTime - startTime;
@@ -85,5 +122,5 @@ public class SongActions {
                 currentStep++;
             }
         }, 0L, intervalMs);
-    }    
+    }
 }
