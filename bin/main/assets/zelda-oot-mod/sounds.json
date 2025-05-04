@@ -10,5 +10,25 @@
   "minuet_of_forest": {
     "subtitle": "sound.zelda-oot-mod.minuet_of_forest",
     "sounds": ["zelda-oot-mod:minuet_of_forest"]
+  },
+  "bolero_of_fire": {
+    "subtitle": "sound.zelda-oot-mod.bolero_of_fire",
+    "sounds": ["zelda-oot-mod:bolero_of_fire"]
+  },
+  "serenade_of_water": {
+    "subtitle": "sound.zelda-oot-mod.serenade_of_water",
+    "sounds": ["zelda-oot-mod:serenade_of_water"]
+  },
+  "nocturne_of_shadow": {
+    "subtitle": "sound.zelda-oot-mod.nocturne_of_shadow",
+    "sounds": ["zelda-oot-mod:nocturne_of_shadow"]
+  },
+  "requiem_of_spirit": {
+    "subtitle": "sound.zelda-oot-mod.requiem_of_spirit",
+    "sounds": ["zelda-oot-mod:requiem_of_spirit"]
+  },
+  "prelude_of_light": {
+    "subtitle": "sound.zelda-oot-mod.prelude_of_light",
+    "sounds": ["zelda-oot-mod:prelude_of_light"]
   }
 }

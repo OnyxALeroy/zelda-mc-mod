@@ -55,6 +55,16 @@ public class Song {
 
         songs.add(new WarpSong("minuet_of_forest", SongActions.MINUET_OF_FOREST, 
             new BlockPos(0, 0, 0), Direction.NORTH, new BlockPos(0, 0, 0), Direction.NORTH));
+        songs.add(new WarpSong("bolero_of_fire", SongActions.BOLERO_OF_FIRE, 
+            new BlockPos(0, 0, 0), Direction.NORTH, new BlockPos(0, 0, 0), Direction.NORTH));
+        songs.add(new WarpSong("serenade_of_water", SongActions.SERENADE_OF_WATER, 
+            new BlockPos(0, 0, 0), Direction.NORTH, new BlockPos(0, 0, 0), Direction.NORTH));
+        songs.add(new WarpSong("nocturne_of_shadow", SongActions.NOCTURNE_OF_SHADOW, 
+            new BlockPos(0, 0, 0), Direction.NORTH, new BlockPos(0, 0, 0), Direction.NORTH));
+        songs.add(new WarpSong("requiem_of_spirit", SongActions.REQUIEM_OF_SPIRIT, 
+            new BlockPos(0, 0, 0), Direction.NORTH, new BlockPos(0, 0, 0), Direction.NORTH));
+        songs.add(new WarpSong("prelude_of_light", SongActions.PRELUDE_OF_LIGHT, 
+            new BlockPos(0, 0, 0), Direction.NORTH, new BlockPos(0, 0, 0), Direction.NORTH));
 
         // songs.add(new Song("song_of_time", SongActions.GIVE_COOKIE));
         // songs.add(new Song("song_of_storms", SongActions.SUMMON_LIGHTNING));

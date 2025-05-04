@@ -28,7 +28,7 @@ public class UsingOcarinaScreen extends Screen {
     protected void init() {
         int centerX = this.width / 2;
         int centerY = this.height / 2;
-        int buttonWidth = 200;
+        int buttonWidth = 220;
         int buttonHeight = 20;
         int startX = centerX - (buttonWidth / 2);
 

@@ -114,6 +114,236 @@ public class SongActions {
             player.sendMessage(Text.literal("§2You have been transported by the Minuet of Forest."), true);
         }
     };
+    public static WarpSongAction BOLERO_OF_FIRE = (server, playerUuid, childWarpPos, childFacing, adultWarpPos, adultFacing) -> {
+        ServerPlayerEntity player = server.getPlayerManager().getPlayer(playerUuid);
+        if (player != null) {
+            ServerWorld world = player.getServerWorld();
+            
+            // Play the song's sound
+            world.playSound(null, player.getBlockPos(), ZeldaSounds.BOLERO_OF_FIRE, SoundCategory.RECORDS, 0.75f, 1.0f);
+            
+            // Show particles
+            world.spawnParticles(ParticleTypes.HAPPY_VILLAGER, 
+                player.getX(), player.getY() + 1, player.getZ(),
+                20, 0.5, 0.5, 0.5, 0.1);
+
+            // Teleport logic
+            BlockPos dest;
+            float facing;
+            ItemStack stack = player.getStackInHand(Hand.MAIN_HAND);
+            if (stack.getItem() instanceof OcarinaTemplate) {
+                if (stack.getOrDefault(ZeldaComponents.IS_OWNER_ADULT, false)){
+                    dest = adultWarpPos;
+                    facing = adultFacing;
+                } else {
+                    dest = childWarpPos;
+                    facing = childFacing;
+                }
+            } else {
+                ZeldaOOTMod.LOGGER.info("Trying to use an Ocarina without using one.");
+                return;
+            }
+
+            player.teleport(
+                world,
+                dest.getX() + 0.5,
+                dest.getY() + 1.0,
+                dest.getZ() + 0.5,
+                EnumSet.noneOf(PositionFlag.class), facing,
+                player.getPitch(), false
+            );
+
+            // Effects and messages
+            world.spawnParticles(ParticleTypes.PORTAL,
+                childWarpPos.getX() + 0.5, childWarpPos.getY() + 1.5, childWarpPos.getZ() + 0.5,
+                400, 0.5, 0.5, 0.5, 0.1);
+            player.sendMessage(Text.literal("§2You have been transported by the Bolero of Fire."), true);
+        }
+    };
+    public static WarpSongAction SERENADE_OF_WATER = (server, playerUuid, childWarpPos, childFacing, adultWarpPos, adultFacing) -> {
+        ServerPlayerEntity player = server.getPlayerManager().getPlayer(playerUuid);
+        if (player != null) {
+            ServerWorld world = player.getServerWorld();
+            
+            // Play the song's sound
+            world.playSound(null, player.getBlockPos(), ZeldaSounds.SERENADE_OF_WATER, SoundCategory.RECORDS, 0.75f, 1.0f);
+            
+            // Show particles
+            world.spawnParticles(ParticleTypes.HAPPY_VILLAGER, 
+                player.getX(), player.getY() + 1, player.getZ(),
+                20, 0.5, 0.5, 0.5, 0.1);
+
+            // Teleport logic
+            BlockPos dest;
+            float facing;
+            ItemStack stack = player.getStackInHand(Hand.MAIN_HAND);
+            if (stack.getItem() instanceof OcarinaTemplate) {
+                if (stack.getOrDefault(ZeldaComponents.IS_OWNER_ADULT, false)){
+                    dest = adultWarpPos;
+                    facing = adultFacing;
+                } else {
+                    dest = childWarpPos;
+                    facing = childFacing;
+                }
+            } else {
+                ZeldaOOTMod.LOGGER.info("Trying to use an Ocarina without using one.");
+                return;
+            }
+
+            player.teleport(
+                world,
+                dest.getX() + 0.5,
+                dest.getY() + 1.0,
+                dest.getZ() + 0.5,
+                EnumSet.noneOf(PositionFlag.class), facing,
+                player.getPitch(), false
+            );
+                
+            // Effects and messages
+            world.spawnParticles(ParticleTypes.PORTAL,
+                childWarpPos.getX() + 0.5, childWarpPos.getY() + 1.5, childWarpPos.getZ() + 0.5,
+                400, 0.5, 0.5, 0.5, 0.1);
+            player.sendMessage(Text.literal("§2You have been transported by the Serenade of Water."), true);
+        }
+    };
+    public static WarpSongAction NOCTURNE_OF_SHADOW = (server, playerUuid, childWarpPos, childFacing, adultWarpPos, adultFacing) -> {
+        ServerPlayerEntity player = server.getPlayerManager().getPlayer(playerUuid);
+        if (player != null) {
+            ServerWorld world = player.getServerWorld();
+            
+            // Play the song's sound
+            world.playSound(null, player.getBlockPos(), ZeldaSounds.NOCTURNE_OF_SHADOW, SoundCategory.RECORDS, 0.75f, 1.0f);
+            
+            // Show particles
+            world.spawnParticles(ParticleTypes.HAPPY_VILLAGER, 
+                player.getX(), player.getY() + 1, player.getZ(),
+                20, 0.5, 0.5, 0.5, 0.1);
+
+            // Teleport logic
+            BlockPos dest;
+            float facing;
+            ItemStack stack = player.getStackInHand(Hand.MAIN_HAND);
+            if (stack.getItem() instanceof OcarinaTemplate) {
+                if (stack.getOrDefault(ZeldaComponents.IS_OWNER_ADULT, false)){
+                    dest = adultWarpPos;
+                    facing = adultFacing;
+                } else {
+                    dest = childWarpPos;
+                    facing = childFacing;
+                }
+            } else {
+                ZeldaOOTMod.LOGGER.info("Trying to use an Ocarina without using one.");
+                return;
+            }
+
+            player.teleport(
+                world,
+                dest.getX() + 0.5,
+                dest.getY() + 1.0,
+                dest.getZ() + 0.5,
+                EnumSet.noneOf(PositionFlag.class), facing,
+                player.getPitch(), false
+            );
+                
+            // Effects and messages
+            world.spawnParticles(ParticleTypes.PORTAL,
+                childWarpPos.getX() + 0.5, childWarpPos.getY() + 1.5, childWarpPos.getZ() + 0.5,
+                400, 0.5, 0.5, 0.5, 0.1);
+            player.sendMessage(Text.literal("§2You have been transported by the Nocturne of Shadow."), true);
+        }
+    };
+    public static WarpSongAction REQUIEM_OF_SPIRIT = (server, playerUuid, childWarpPos, childFacing, adultWarpPos, adultFacing) -> {
+        ServerPlayerEntity player = server.getPlayerManager().getPlayer(playerUuid);
+        if (player != null) {
+            ServerWorld world = player.getServerWorld();
+            
+            // Play the song's sound
+            world.playSound(null, player.getBlockPos(), ZeldaSounds.REQUIEM_OF_SPIRIT, SoundCategory.RECORDS, 0.75f, 1.0f);
+            
+            // Show particles
+            world.spawnParticles(ParticleTypes.HAPPY_VILLAGER, 
+                player.getX(), player.getY() + 1, player.getZ(),
+                20, 0.5, 0.5, 0.5, 0.1);
+
+            // Teleport logic
+            BlockPos dest;
+            float facing;
+            ItemStack stack = player.getStackInHand(Hand.MAIN_HAND);
+            if (stack.getItem() instanceof OcarinaTemplate) {
+                if (stack.getOrDefault(ZeldaComponents.IS_OWNER_ADULT, false)){
+                    dest = adultWarpPos;
+                    facing = adultFacing;
+                } else {
+                    dest = childWarpPos;
+                    facing = childFacing;
+                }
+            } else {
+                ZeldaOOTMod.LOGGER.info("Trying to use an Ocarina without using one.");
+                return;
+            }
+
+            player.teleport(
+                world,
+                dest.getX() + 0.5,
+                dest.getY() + 1.0,
+                dest.getZ() + 0.5,
+                EnumSet.noneOf(PositionFlag.class), facing,
+                player.getPitch(), false
+            );
+                
+            // Effects and messages
+            world.spawnParticles(ParticleTypes.PORTAL,
+                childWarpPos.getX() + 0.5, childWarpPos.getY() + 1.5, childWarpPos.getZ() + 0.5,
+                400, 0.5, 0.5, 0.5, 0.1);
+            player.sendMessage(Text.literal("§2You have been transported by the Requiem of Spirit."), true);
+        }
+    };
+    public static WarpSongAction PRELUDE_OF_LIGHT = (server, playerUuid, childWarpPos, childFacing, adultWarpPos, adultFacing) -> {
+        ServerPlayerEntity player = server.getPlayerManager().getPlayer(playerUuid);
+        if (player != null) {
+            ServerWorld world = player.getServerWorld();
+            
+            // Play the song's sound
+            world.playSound(null, player.getBlockPos(), ZeldaSounds.PRELUDE_OF_LIGHT, SoundCategory.RECORDS, 0.75f, 1.0f);
+            
+            // Show particles
+            world.spawnParticles(ParticleTypes.HAPPY_VILLAGER, 
+                player.getX(), player.getY() + 1, player.getZ(),
+                20, 0.5, 0.5, 0.5, 0.1);
+
+            // Teleport logic
+            BlockPos dest;
+            float facing;
+            ItemStack stack = player.getStackInHand(Hand.MAIN_HAND);
+            if (stack.getItem() instanceof OcarinaTemplate) {
+                if (stack.getOrDefault(ZeldaComponents.IS_OWNER_ADULT, false)){
+                    dest = adultWarpPos;
+                    facing = adultFacing;
+                } else {
+                    dest = childWarpPos;
+                    facing = childFacing;
+                }
+            } else {
+                ZeldaOOTMod.LOGGER.info("Trying to use an Ocarina without using one.");
+                return;
+            }
+
+            player.teleport(
+                world,
+                dest.getX() + 0.5,
+                dest.getY() + 1.0,
+                dest.getZ() + 0.5,
+                EnumSet.noneOf(PositionFlag.class), facing,
+                player.getPitch(), false
+            );
+                
+            // Effects and messages
+            world.spawnParticles(ParticleTypes.PORTAL,
+                childWarpPos.getX() + 0.5, childWarpPos.getY() + 1.5, childWarpPos.getZ() + 0.5,
+                400, 0.5, 0.5, 0.5, 0.1);
+            player.sendMessage(Text.literal("§2You have been transported by the Prelude of Light."), true);
+        }
+    };
 
     // ----------------------------------------------------------------------------------------------------------------------------------------------
 
