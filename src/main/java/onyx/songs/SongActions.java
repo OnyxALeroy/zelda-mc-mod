@@ -6,6 +6,7 @@ import java.util.TimerTask;
 
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 
+import net.minecraft.item.ItemStack;
 import net.minecraft.network.packet.s2c.play.PositionFlag;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.server.MinecraftServer;
@@ -13,6 +14,11 @@ import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.text.Text;
+import net.minecraft.util.Hand;
+import net.minecraft.util.math.BlockPos;
+import onyx.ZeldaOOTMod;
+import onyx.components.ZeldaComponents;
+import onyx.items.ocarina.OcarinaTemplate;
 import onyx.sounds.ZeldaSounds;
 
 public class SongActions {
@@ -62,7 +68,7 @@ public class SongActions {
 
     // ----------------------------------------------------------------------------------------------------------------------------------------------
 
-    public static WarpSongAction MINUET_OF_FOREST = (server, playerUuid, warpPos, facing) -> {
+    public static WarpSongAction MINUET_OF_FOREST = (server, playerUuid, childWarpPos, childFacing, adultWarpPos, adultFacing) -> {
         ServerPlayerEntity player = server.getPlayerManager().getPlayer(playerUuid);
         if (player != null) {
             ServerWorld world = player.getServerWorld();
@@ -76,18 +82,34 @@ public class SongActions {
                 20, 0.5, 0.5, 0.5, 0.1);
 
             // Teleport logic
+            BlockPos dest;
+            float facing;
+            ItemStack stack = player.getStackInHand(Hand.MAIN_HAND);
+            if (stack.getItem() instanceof OcarinaTemplate) {
+                if (stack.getOrDefault(ZeldaComponents.IS_OWNER_ADULT, false)){
+                    dest = adultWarpPos;
+                    facing = adultFacing;
+                } else {
+                    dest = childWarpPos;
+                    facing = childFacing;
+                }
+            } else {
+                ZeldaOOTMod.LOGGER.info("Trying to use an Ocarina without using one.");
+                return;
+            }
+
             player.teleport(
                 world,
-                warpPos.getX() + 0.5,
-                warpPos.getY() + 1.0,
-                warpPos.getZ() + 0.5,
+                dest.getX() + 0.5,
+                dest.getY() + 1.0,
+                dest.getZ() + 0.5,
                 EnumSet.noneOf(PositionFlag.class), facing,
                 player.getPitch(), false
             );
                 
             // Effects and messages
             world.spawnParticles(ParticleTypes.PORTAL,
-                warpPos.getX() + 0.5, warpPos.getY() + 1.5, warpPos.getZ() + 0.5,
+                childWarpPos.getX() + 0.5, childWarpPos.getY() + 1.5, childWarpPos.getZ() + 0.5,
                 400, 0.5, 0.5, 0.5, 0.1);
             player.sendMessage(Text.literal("§2You have been transported by the Minuet of Forest."), true);
         }

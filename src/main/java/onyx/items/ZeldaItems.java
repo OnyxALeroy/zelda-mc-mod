@@ -52,7 +52,7 @@ public class ZeldaItems {
     public static final Item GOLD_RUPEE = register("gold_rupee", GoldRupee::new, new Item.Settings());
 
 	// Items
-    public static final Item OCARINA_OF_TIME = register("ocarina_of_time", OcarinaOfTime::new, new Item.Settings());
+    public static final Item OCARINA_OF_TIME = register("ocarina_of_time", OcarinaOfTime::new, new Item.Settings().component(ZeldaComponents.IS_OWNER_ADULT, false));
     public static final Item SLINGSHOT = register("slingshot", Slingshot::new, new Item.Settings());
     public static final Item DEKU_SEED = register("deku_seed", Item::new, new Item.Settings());
     public static final Item HOOKSHOT = register("hookshot", Hookshot::new, new Item.Settings());

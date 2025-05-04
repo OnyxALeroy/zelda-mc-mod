@@ -7,5 +7,5 @@ import net.minecraft.util.math.BlockPos;
 
 @FunctionalInterface
 public interface WarpSongAction {
-    void execute(MinecraftServer server, UUID playerUuid, BlockPos warpPos, float facing);
+    void execute(MinecraftServer server, UUID playerUuid, BlockPos warpPos, float facing, BlockPos adultWarpPos, float adultFacing);
 }

@@ -10,6 +10,7 @@
 
   "_comment_2": "Below are translations for items -------------------------------------------------------------------------------",
   "item.zelda-oot-mod.ocarina_of_time": "Ocarina of Time",
+  "itemTooltip.zelda-oot-mod.ocarina.info": "Is User Adult: %s",
 
   "item.zelda-oot-mod.rupee_wallet": "Rupee Wallet",
   "item.zelda-oot-mod.adult_rupee_wallet": "Adult Rupee Wallet",

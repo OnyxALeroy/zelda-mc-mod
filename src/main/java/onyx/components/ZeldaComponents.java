@@ -1,6 +1,7 @@
 package onyx.components;
 
 import net.minecraft.util.Identifier;
+import onyx.ZeldaOOTMod;
 
 import com.mojang.serialization.Codec;
 import net.minecraft.component.ComponentType;
@@ -20,5 +21,13 @@ public class ZeldaComponents {
         ComponentType.<Integer>builder().codec(Codec.INT).build()
     );
 
-	protected static void initialize(){}
+    public static final ComponentType<Boolean> IS_OWNER_ADULT = Registry.register(
+        Registries.DATA_COMPONENT_TYPE,
+        Identifier.of("zelda-oot-mod", "is_owner_adult"),
+        ComponentType.<Boolean>builder().codec(Codec.BOOL).build()
+    );
+
+	protected static void initialize(){
+        ZeldaOOTMod.LOGGER.info("Registering {} components", ZeldaOOTMod.MOD_ID);
+    }
 }
