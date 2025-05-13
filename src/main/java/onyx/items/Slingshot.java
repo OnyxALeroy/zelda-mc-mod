@@ -9,8 +9,7 @@ import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.world.World;
-
-import onyx.entities.DekuSeedEntity;
+import onyx.entities.custom.DekuSeedEntity;
 import onyx.items.behaviourmanagers.SlingshotHandler;
 
 public class Slingshot extends Item {

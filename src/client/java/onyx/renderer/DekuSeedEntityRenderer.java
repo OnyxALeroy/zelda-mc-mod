@@ -7,7 +7,7 @@ import net.minecraft.client.render.entity.FlyingItemEntityRenderer;
 import net.minecraft.client.render.entity.state.FlyingItemEntityRenderState;
 import net.minecraft.client.util.math.MatrixStack;
 import onyx.blocks.ZeldaBlocks;
-import onyx.entities.DekuSeedEntity;
+import onyx.entities.custom.DekuSeedEntity;
 import net.minecraft.client.MinecraftClient;
 
 public class DekuSeedEntityRenderer extends FlyingItemEntityRenderer<DekuSeedEntity> {

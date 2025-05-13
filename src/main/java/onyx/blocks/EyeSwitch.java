@@ -26,7 +26,7 @@ import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 
 import onyx.blocks.blockentities.EyeSwitchEntity;
-import onyx.entities.DekuSeedEntity;
+import onyx.entities.custom.DekuSeedEntity;
 
 public class EyeSwitch extends BlockWithEntity {
 	public static final EnumProperty<Direction> FACING = FacingBlock.FACING;

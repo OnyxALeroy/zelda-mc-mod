@@ -1,4 +1,4 @@
-package onyx.entities;
+package onyx.entities.custom;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -20,6 +20,7 @@ import net.minecraft.util.hit.HitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import onyx.blocks.EyeSwitch;
+import onyx.entities.ZeldaEntities;
 import onyx.items.ZeldaItems;
 
 public class DekuSeedEntity extends PersistentProjectileEntity implements FlyingItemEntity {
